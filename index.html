@@ -506,7 +506,7 @@
 </svg>
       </div>
 
-      <p class="cake-hint" id="cakeHint">十八根蜡烛，替她吹一下吧</p>
+      <p class="cake-hint" id="cakeHint">轻轻吹一口气，愿望就记下了</p>
       <button class="blow-btn" id="blowBtn" type="button">吹蜡烛 · 许个愿</button>
       <p class="wish" id="wish">愿望收好啦 —— 愿十八岁的你，<br>万事顺意，岁岁欢喜。</p>
       <p class="stamp-line">2026.11.11 · 你的第 18 个生日</p>
@@ -1176,7 +1176,7 @@
     letterCard.classList.remove("is-in");
     $("blowBtn").classList.remove("is-done");
     $("wish").classList.remove("is-in");
-    $("cakeHint").textContent = "十八根蜡烛，替她吹一下吧";
+    $("cakeHint").textContent = "轻轻吹一口气，愿望就记下了";
     candleEls.forEach(function (c) { c.classList.remove("is-out"); });
     var ts = $("toScratch"); if (ts) ts.style.display = "none";
     scInit = false;
