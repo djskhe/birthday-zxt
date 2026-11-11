@@ -4,19 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#eaf4ff">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%8E%82%3C/text%3E%3C/svg%3E">
 <meta name="description" content="写给曾祥婷的十八岁生日贺卡">
 <title>曾祥婷 · 十八岁生日快乐</title>
 <meta property="og:title" content="曾祥婷 · 十八岁生日快乐">
-<meta property="og:description" content="一份迟到几天的生日礼物，点开拆一下。">
+<meta property="og:description" content="一封火漆封口的信，一封迟到了几天的祝福。">
 <meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%92%8C%3C/text%3E%3C/svg%3E">
 <style>
   :root{
     --violet:#5b46a8;
     --violet-deep:#3d2f6b;
     --pink:#ff9ec4;
-    --pink-soft:#ffd3e4;
-    --blue:#7fc4ef;
     --ink:#4a3b78;
     --ink-soft:#7d6fa8;
     --ease:cubic-bezier(.22,.9,.24,1);
@@ -39,14 +37,12 @@
   .a3{width:86vw;height:70vw;left:8vw;bottom:-34vw;background:radial-gradient(circle,#cdbcff,transparent 70%);animation:drift1 24s ease-in-out infinite alternate-reverse}
   @keyframes drift1{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(4vw,3vh,0) scale(1.08)}}
   @keyframes drift2{from{transform:translate3d(0,0,0) scale(1.05)}to{transform:translate3d(-5vw,4vh,0) scale(.96)}}
-
   .bokeh{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.95),rgba(255,255,255,0) 70%);opacity:.7}
   .b1{width:120px;height:120px;left:5%;top:56%;animation:floaty 12s ease-in-out infinite}
   .b2{width:74px;height:74px;right:8%;top:20%;animation:floaty 9s ease-in-out infinite .8s}
   .b3{width:46px;height:46px;left:20%;top:14%;animation:floaty 11s ease-in-out infinite .4s}
   .b4{width:90px;height:90px;right:14%;bottom:14%;animation:floaty 14s ease-in-out infinite .2s}
   @keyframes floaty{0%,100%{transform:translateY(0) scale(1);opacity:.5}50%{transform:translateY(-16px) scale(1.08);opacity:.85}}
-
   .stars{position:absolute;inset:0;opacity:.8;
     background-image:
       radial-gradient(circle,#fff 0 1.1px,transparent 1.8px),
@@ -59,79 +55,113 @@
 
   canvas.fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;display:block}
   #fx{z-index:1}
-  #fxTop{z-index:9}
+  #fxTop{z-index:12}
 
-  /* ---------- 页面层 ---------- */
+  /* ---------- 舞台 ---------- */
   .stage{position:relative;z-index:2;height:100dvh}
-  .layer{
-    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  .layer{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
     padding:var(--pad-t) 20px var(--pad-b);
     overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;
     visibility:hidden;opacity:0;
-    transition:opacity .75s var(--ease), visibility 0s linear .75s;
-  }
-  .layer.is-visible{visibility:visible;opacity:1;transition:opacity .75s var(--ease), visibility 0s linear 0s}
+    transition:opacity .7s var(--ease), visibility 0s linear .7s}
+  .layer.is-visible{visibility:visible;opacity:1;transition:opacity .7s var(--ease), visibility 0s linear 0s}
   .layer > .inner{margin:auto;width:100%;display:flex;flex-direction:column;align-items:center;text-align:center}
-  #intro{z-index:4}
-  #finale{z-index:3}
+  #cover{z-index:5}
+  #letter{z-index:4}
+  #cakeScene{z-index:3;background:radial-gradient(120% 80% at 50% 12%,#2e2456 0%,#1d1638 52%,#120d26 100%)}
+  #cakeScene::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(60% 40% at 18% 30%,rgba(255,158,196,.22),transparent 70%),
+      radial-gradient(50% 36% at 84% 24%,rgba(127,196,239,.20),transparent 70%),
+      radial-gradient(70% 40% at 50% 96%,rgba(140,110,255,.22),transparent 70%)}
+  #cakeScene .inner{position:relative;z-index:1}
 
   /* ---------- 首屏 ---------- */
-  .eyebrow{margin:0 0 12px;font-size:12px;letter-spacing:.44em;text-indent:.44em;color:var(--ink-soft)}
-  h1{margin:0;font-size:clamp(28px,8.4vw,40px);line-height:1.26;font-weight:800;letter-spacing:.02em;
-    color:var(--violet-deep);
+  .eyebrow{margin:0 0 10px;font-size:11px;letter-spacing:.42em;text-indent:.42em;color:var(--ink-soft)}
+  h1{margin:0;font-size:clamp(27px,8vw,38px);line-height:1.26;font-weight:800;letter-spacing:.02em;color:var(--violet-deep);
     text-shadow:0 2px 0 rgba(255,255,255,.9), 0 16px 34px rgba(96,72,168,.16)}
   h1 .name{color:var(--violet)}
-  .sub{margin:12px 0 0;font-size:13px;letter-spacing:.16em;color:var(--ink-soft)}
+  .sub{margin:10px 0 0;font-size:12.5px;letter-spacing:.16em;color:var(--ink-soft)}
   .sub b{color:var(--pink);font-weight:700}
 
-  .giftwrap{position:relative;width:min(60vw,214px);aspect-ratio:1/1;margin:clamp(12px,3vh,26px) 0 0}
-  .halo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-    width:min(78vw,290px);aspect-ratio:1;border-radius:50%;
-    background:radial-gradient(circle,rgba(255,255,255,.96) 0%,rgba(255,214,232,.55) 42%,rgba(255,214,232,0) 70%);
-    animation:breathe 4.4s ease-in-out infinite;pointer-events:none}
-  @keyframes breathe{0%,100%{transform:translate(-50%,-50%) scale(.93);opacity:.7}50%{transform:translate(-50%,-50%) scale(1.07);opacity:1}}
+  /* ---------- 信封 ---------- */
+  .env-wrap{position:relative;width:min(86vw,352px);aspect-ratio:352/238;margin:clamp(14px,3.2vh,26px) auto 0;perspective:1100px}
+  .env{position:absolute;inset:0;transform-style:preserve-3d}
+  .env__back{position:absolute;inset:0;border-radius:16px;background:linear-gradient(160deg,#fff9fc,#ffe6f2);
+    box-shadow:0 26px 48px rgba(96,72,168,.24), inset 0 0 0 1px rgba(255,255,255,.9)}
+  .env__letter{position:absolute;left:7%;right:7%;top:11%;bottom:14%;border-radius:8px;z-index:2;
+    background:linear-gradient(180deg,#fffefd,#fff7fb);box-shadow:0 10px 22px rgba(96,72,168,.16);
+    transform:translateY(12%);transition:transform .9s var(--ease) .3s}
+  .env__letter::after{content:"";position:absolute;inset:11px;border-radius:4px;border:1px dashed rgba(255,158,196,.45)}
+  .env__clip{position:absolute;inset:0;border-radius:16px;overflow:hidden;z-index:3}
+  .env__pocket{position:absolute;inset:0;background:linear-gradient(158deg,#ffdcec 0%,#ffc2dc 62%,#ffb2d2 100%);
+    clip-path:polygon(0 0,50% 46%,100% 0,100% 100%,0 100%)}
+  .env__pocket::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(158deg,rgba(255,255,255,.7),rgba(255,255,255,0) 52%)}
+  .stamp{position:absolute;right:6%;top:8%;width:19%;aspect-ratio:1/1.22;z-index:4;
+    background:linear-gradient(150deg,#f3f0ff,#e5e0ff);border-radius:3px;
+    box-shadow:0 4px 10px rgba(96,72,168,.18);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+    outline:2px dashed rgba(255,255,255,.9);outline-offset:-5px}
+  .stamp b{font-size:13px;color:#6a56c0;letter-spacing:.06em}
+  .stamp i{font-style:normal;font-size:8px;letter-spacing:.16em;color:#a58ce8}
 
-  .box{position:absolute;left:0;right:0;bottom:0;width:100%;height:auto;display:block;cursor:pointer;
-    filter:drop-shadow(0 20px 28px rgba(96,72,168,.24));transform-origin:50% 100%;
-    animation:boxBob 3.6s ease-in-out infinite}
-  @keyframes boxBob{0%,100%{transform:translateY(0) rotate(-.6deg)}50%{transform:translateY(-7px) rotate(.6deg)}}
-  .box.is-shake{animation:boxShake .6s ease-in-out}
-  @keyframes boxShake{0%,100%{transform:translateX(0) rotate(0)}18%{transform:translateX(-6px) rotate(-2.4deg)}36%{transform:translateX(6px) rotate(2.4deg)}54%{transform:translateX(-4px) rotate(-1.4deg)}72%{transform:translateX(2px) rotate(.8deg)}}
-  .lid{transform-box:fill-box;transform-origin:50% 92%}
-  .box.is-open .lid{animation:lidFly .95s var(--ease) forwards}
-  @keyframes lidFly{0%{transform:translateY(0) rotate(0);opacity:1}42%{transform:translateY(-54px) rotate(-14deg);opacity:1}100%{transform:translateY(-106px) rotate(-32deg);opacity:0}}
-  .box.is-open .box-body{animation:boxFade .9s var(--ease) .18s forwards}
-  @keyframes boxFade{to{opacity:0}}
+  .env__flap{position:absolute;left:0;right:0;top:0;height:62%;z-index:5;
+    clip-path:polygon(0 0,100% 0,50% 100%);
+    background:linear-gradient(172deg,#fffafd 0%,#ffeaf4 55%,#ffd7e8 100%);
+    transform-origin:50% 0;transform-style:preserve-3d;backface-visibility:hidden;
+    transition:transform .9s var(--ease);
+    filter:drop-shadow(0 10px 12px rgba(146,74,116,.22))}
+  .env__flap::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(172deg,rgba(255,255,255,.55),rgba(255,255,255,0) 60%)}
+  .env.is-open .env__flap{transform:rotateX(-176deg)}
+  .env.is-open .env__letter{transform:translateY(-26%)}
 
-  .tip{position:absolute;top:-4px;right:-4px;padding:6px 11px;border-radius:14px 14px 14px 4px;
-    background:rgba(255,255,255,.95);font-size:11.5px;color:var(--violet);letter-spacing:.06em;
-    box-shadow:0 8px 18px rgba(96,72,168,.16);animation:tipFloat 3.2s ease-in-out infinite}
-  @keyframes tipFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+  /* 火漆 */
+  .seal{position:absolute;left:50%;top:62%;width:74px;height:74px;transform:translate(-50%,-50%);
+    z-index:7;border:0;background:none;padding:0;cursor:pointer}
+  .seal svg{width:100%;height:100%;display:block;overflow:visible}
+  .seal__glow{position:absolute;inset:-45%;border-radius:50%;pointer-events:none;
+    background:radial-gradient(circle,rgba(255,158,196,.55) 0%,rgba(255,158,196,.18) 42%,rgba(255,158,196,0) 68%);
+    animation:sealGlow 3.4s ease-in-out infinite}
+  @keyframes sealGlow{0%,100%{opacity:.4;transform:scale(.94)}50%{opacity:1;transform:scale(1.1)}}
+  .seal__half{position:absolute;inset:0;transition:transform .62s ease-out,opacity .62s ease-out}
+  .seal__half.l{clip-path:inset(0 50% 0 0)}
+  .seal__half.r{clip-path:inset(0 0 0 50%)}
+  .seal__crack{position:absolute;left:50%;top:4%;width:2px;height:92%;transform:scaleY(0);opacity:0;
+    background:linear-gradient(transparent,#fff8e8 16%,#ffffff 50%,#fff8e8 84%,transparent);filter:blur(.3px)}
+  .env.is-crack .seal__crack{animation:crackFlash .52s ease-out}
+  @keyframes crackFlash{0%{opacity:0;transform:scaleY(0)}22%{opacity:1;transform:scaleY(1)}100%{opacity:0;transform:scaleY(1)}}
+  .env.is-open .seal__half.l{transform:translate(-34px,20px) rotate(-28deg);opacity:0}
+  .env.is-open .seal__half.r{transform:translate(34px,22px) rotate(26deg);opacity:0}
+  .env.is-open .seal__glow{animation:none;opacity:0;transition:opacity .4s}
+  .seal__hint{position:absolute;left:50%;top:calc(100% + 14px);transform:translateX(-50%);white-space:nowrap;
+    font-size:12px;letter-spacing:.32em;text-indent:.32em;color:var(--ink-soft);animation:hintFade 3.6s ease-in-out infinite}
+  @keyframes hintFade{0%,100%{opacity:.45}50%{opacity:.95}}
+  .env.is-open .seal__hint{opacity:0;transition:opacity .3s}
 
-  /* ---------- 蛋小黑 ---------- */
-  .egg-pos{position:absolute;left:0;right:0;bottom:28%;display:flex;justify-content:center;pointer-events:none}
-  .egg{width:min(33vw,116px);height:auto;display:block;opacity:0;transform:scale(.5) translateY(38px);transform-origin:50% 100%;
-    filter:drop-shadow(0 12px 18px rgba(63,48,112,.3));pointer-events:auto;cursor:pointer}
-  .egg.is-pop{animation:eggPop 1.05s var(--ease) forwards}
+  /* 蹦出来的蛋 */
+  .env-egg{position:absolute;left:50%;bottom:86%;width:min(24vw,88px);transform:translate(-50%,30px) scale(.4);
+    opacity:0;z-index:6;pointer-events:none;filter:drop-shadow(0 10px 16px rgba(63,48,112,.28))}
+  .env-egg.is-pop{animation:eggPop 1s var(--ease) forwards}
   @keyframes eggPop{
-    0%{opacity:0;transform:scale(.5) translateY(46px) rotate(-9deg)}
-    24%{opacity:1;transform:scale(1.12) translateY(-32px) rotate(8deg)}
-    44%{transform:scale(.95) translateY(-54px) rotate(-4deg)}
-    62%{transform:scale(1.04) translateY(-42px) rotate(2deg)}
-    100%{opacity:1;transform:scale(1) translateY(-46px) rotate(0)}
+    0%{opacity:0;transform:translate(-50%,26px) scale(.4) rotate(-8deg)}
+    30%{opacity:1;transform:translate(-50%,-26px) scale(1.1) rotate(7deg)}
+    55%{transform:translate(-50%,-40px) scale(.96) rotate(-3deg)}
+    78%{transform:translate(-50%,-33px) scale(1.03) rotate(1.5deg)}
+    100%{opacity:1;transform:translate(-50%,-36px) scale(1) rotate(0)}
   }
   .egg__bob{transform-origin:50% 92%;display:block;width:100%;height:auto}
-  .egg.is-pop .egg__bob{animation:bob 3.2s ease-in-out 1.05s infinite}
-  @keyframes bob{0%,100%{transform:translateY(0) rotate(-1.4deg)}50%{transform:translateY(-8px) rotate(1.4deg)}}
+  .is-pop .egg__bob{animation:bob 3.2s ease-in-out 1s infinite}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(-1.4deg)}50%{transform:translateY(-7px) rotate(1.4deg)}}
   .egg__eyes{transform-box:fill-box;transform-origin:50%;animation:blink 5.4s ease-in-out infinite}
   @keyframes blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.08)}}
   .egg__arm{transform-box:fill-box;transform-origin:50% 8%;animation:wave 3.6s ease-in-out infinite}
   @keyframes wave{0%,56%,100%{transform:rotate(0)}66%{transform:rotate(-24deg)}76%{transform:rotate(8deg)}86%{transform:rotate(-15deg)}}
 
-  /* ---------- 按钮 ---------- */
-  .btn-wrap{margin-top:clamp(12px,3vh,24px)}
+  .btn-wrap{margin-top:clamp(14px,3.2vh,26px)}
   .gift-btn{position:relative;border:0;cursor:pointer;font-family:inherit;
-    padding:16px 38px;border-radius:999px;font-size:16px;font-weight:700;letter-spacing:.14em;text-indent:.14em;color:#fff;
+    padding:15px 36px;border-radius:999px;font-size:15.5px;font-weight:700;letter-spacing:.14em;text-indent:.14em;color:#fff;
     background:linear-gradient(135deg,#8fcbf2 0%,#a58ce8 46%,#ff9ec4 100%);
     box-shadow:0 14px 30px rgba(111,87,196,.34), inset 0 1px 0 rgba(255,255,255,.6);
     transition:transform .22s var(--ease);overflow:hidden}
@@ -139,78 +169,94 @@
     transform:translateX(-120%);animation:sheen 3.6s ease-in-out infinite}
   @keyframes sheen{0%,55%{transform:translateX(-120%)}80%,100%{transform:translateX(120%)}}
   .gift-btn:active{transform:translateY(2px) scale(.98)}
-  .gift-btn::after{content:"";position:absolute;inset:-6px;border-radius:999px;border:1.5px solid rgba(165,140,232,.4);animation:ring 2.4s ease-out infinite;pointer-events:none}
-  @keyframes ring{0%{transform:scale(.94);opacity:.9}70%{transform:scale(1.12);opacity:0}100%{opacity:0}}
-  .hint{margin:13px 0 0;font-size:12px;letter-spacing:.16em;color:var(--ink-soft);opacity:.85}
+  .hint{margin:12px 0 0;font-size:12px;letter-spacing:.16em;color:var(--ink-soft);opacity:.85}
 
-  /* ---------- 祝福卡 ---------- */
-  .bunting{width:min(96vw,440px);height:auto;display:block;margin:0 auto -6px;opacity:.95}
-  .pennant{transform-box:fill-box;transform-origin:50% 0;animation:sway 4s ease-in-out infinite}
-  @keyframes sway{0%,100%{transform:rotate(-2.2deg)}50%{transform:rotate(2.2deg)}}
-
-  .finale-inner{padding-top:2px}
-  .peek{width:min(27vw,94px);margin:-6px auto -12px;filter:drop-shadow(0 10px 16px rgba(63,48,112,.26));
+  /* ---------- 信纸 ---------- */
+  .peek{width:min(26vw,92px);margin:0 auto -14px;filter:drop-shadow(0 10px 16px rgba(63,48,112,.26));
     animation:bob 3.4s ease-in-out infinite .2s;position:relative;z-index:3}
   .peek svg{display:block;width:100%;height:auto}
-
-  .card{position:relative;width:min(92vw,410px);margin:0 auto;
-    padding:clamp(20px,4.6vw,28px) clamp(18px,4.6vw,26px) 14px;border-radius:26px;text-align:center;
-    background:linear-gradient(168deg,rgba(255,255,255,.97),rgba(255,247,251,.94));
+  .letter-card{position:relative;width:min(92vw,410px);margin:0 auto;
+    padding:clamp(20px,4.6vw,28px) clamp(18px,4.6vw,26px) 14px;border-radius:22px;text-align:center;
+    background:linear-gradient(172deg,rgba(255,255,255,.98),rgba(255,249,252,.95));
     box-shadow:0 24px 50px rgba(96,72,168,.18), 0 0 0 1px rgba(255,255,255,.85) inset}
-  .card::before{content:"";position:absolute;inset:8px;border-radius:20px;border:1px solid rgba(255,180,210,.45);pointer-events:none}
-  .tape{position:absolute;width:64px;height:20px;background:linear-gradient(100deg,rgba(255,214,232,.92),rgba(214,198,255,.85));opacity:.85}
-  .tape.l{left:-16px;top:26px;transform:rotate(-32deg)}
-  .tape.r{right:-16px;bottom:34px;transform:rotate(-32deg)}
-  .card__tag{margin:0 0 10px;font-size:11px;letter-spacing:.44em;text-indent:.44em;color:var(--pink);font-weight:700}
-  .card__title{margin:0 0 12px;font-size:clamp(20px,5.6vw,24px);font-weight:800;letter-spacing:.04em;
+  .letter-card::before{content:"";position:absolute;inset:9px;border-radius:16px;
+    border:1px dashed rgba(255,170,205,.5);pointer-events:none}
+  .card__tag{margin:0 0 8px;font-size:10.5px;letter-spacing:.42em;text-indent:.42em;color:var(--pink);font-weight:700}
+  .card__title{margin:0 0 12px;font-size:clamp(19px,5.4vw,23px);font-weight:800;letter-spacing:.04em;
     background:linear-gradient(100deg,#6a56c0,#c86fa8 58%,#e78fb8);
     -webkit-background-clip:text;background-clip:text;color:transparent}
-  .card__line{margin:0 0 9px;font-size:clamp(13.5px,3.9vw,15px);line-height:1.9;color:var(--ink)}
+  .card__line{margin:0 0 8px;font-size:clamp(13.5px,3.9vw,15px);line-height:1.88;color:var(--ink)}
   .card__line em{font-style:normal;color:var(--violet);font-weight:700}
-  .card__sign{margin:14px 0 0;font-size:12.5px;letter-spacing:.1em;color:var(--ink-soft)}
-  .card__tag,.card__title,.card__line,.card__sign{opacity:0;transform:translateY(14px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
-  .card.is-in .card__tag,.card.is-in .card__title,.card.is-in .card__line,.card.is-in .card__sign{opacity:1;transform:none}
-  .card-bar{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:14px;padding-top:12px;border-top:1px dashed rgba(122,107,166,.24);flex-wrap:wrap}
-  .mini{border:0;background:transparent;cursor:pointer;font-family:inherit;font-size:12.5px;letter-spacing:.08em;color:var(--ink-soft);padding:7px 8px;border-radius:999px;transition:color .2s,background .2s}
-  .mini:hover{color:var(--violet);background:rgba(165,140,232,.1)}
+  .card__sign{margin:13px 0 0;font-size:12px;letter-spacing:.1em;color:var(--ink-soft)}
+  .card__tag,.card__title,.card__line,.card__sign{opacity:0;transform:translateY(14px);
+    transition:opacity .6s var(--ease),transform .6s var(--ease)}
+  .letter-card.is-in .card__tag,.letter-card.is-in .card__title,.letter-card.is-in .card__line,.letter-card.is-in .card__sign{opacity:1;transform:none}
+  .card-bar{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:12px;padding-top:11px;
+    border-top:1px dashed rgba(122,107,166,.24);flex-wrap:wrap}
+  .mini{border:0;background:transparent;cursor:pointer;font-family:inherit;font-size:12.5px;letter-spacing:.08em;
+    color:var(--ink-soft);padding:7px 8px;border-radius:999px;transition:color .2s,background .2s}
   .mini:active{transform:scale(.96)}
   .dot{width:3px;height:3px;border-radius:50%;background:rgba(122,107,166,.45)}
+  .to-cake{margin-top:16px;border:0;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;letter-spacing:.14em;
+    padding:13px 30px;border-radius:999px;color:#fff;
+    background:linear-gradient(135deg,#8b78d6,#c98fd2 55%,#ff9ec4);
+    box-shadow:0 12px 26px rgba(120,92,200,.32);transition:transform .2s var(--ease)}
+  .to-cake:active{transform:scale(.97)}
 
-  /* ---------- 蛋糕 ---------- */
-  .cake-wrap{width:min(86vw,320px);margin:10px auto 0;position:relative}
-  #cake{display:block;width:100%;height:auto;overflow:visible;filter:drop-shadow(0 18px 26px rgba(96,72,168,.16))}
+  /* ---------- 星空蛋糕 ---------- */
+  .night-inner{padding-top:2px}
+  .night-eyebrow{margin:0 0 8px;font-size:10px;letter-spacing:.36em;text-indent:.36em;color:rgba(214,205,255,.75)}
+  .night-title{margin:0;font-size:clamp(24px,7vw,32px);font-weight:800;letter-spacing:.06em;
+    background:linear-gradient(100deg,#ffe2f0,#cfd4ff 50%,#a9d8ff);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 6px 18px rgba(120,150,255,.35))}
+  .night-sub{margin:6px 0 0;font-size:12px;letter-spacing:.22em;color:rgba(206,198,240,.7)}
+  .cake-wrap{width:min(88vw,338px);margin:clamp(4px,1.4vh,12px) auto 0;position:relative}
+  #cake{display:block;width:100%;height:auto;overflow:visible;filter:drop-shadow(0 24px 34px rgba(0,0,0,.45))}
   .candle{cursor:pointer}
   .flame{transform-box:fill-box;transform-origin:50% 100%;animation:flicker 1.5s ease-in-out infinite}
   @keyframes flicker{0%,100%{transform:scale(1) translateY(0) rotate(-1deg);opacity:.95}35%{transform:scale(1.08,.94) translateY(-1px) rotate(2deg);opacity:1}70%{transform:scale(.94,1.06) translateY(1px) rotate(-2deg);opacity:.9}}
   .candle.is-out .flame{animation:none;opacity:0;transform:scale(.1);transition:opacity .3s ease,transform .3s ease}
   .smoke{opacity:0;transition:opacity .3s ease}
-  .candle.is-out .smoke{opacity:.5}
+  .candle.is-out .smoke{opacity:.55}
   .candle.is-out .smoke path{animation:smokeRise 2.2s ease-out infinite}
   @keyframes smokeRise{0%{transform:translateY(0) scale(.7);opacity:.7}100%{transform:translateY(-24px) scale(1.5);opacity:0}}
-  .cake-hint{margin:4px 0 0;font-size:12px;letter-spacing:.14em;color:var(--ink-soft);min-height:18px}
+  .cake-hint{margin:6px 0 0;font-size:12px;letter-spacing:.14em;color:rgba(214,205,255,.72);min-height:18px}
   .blow-btn{margin-top:10px;border:0;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;letter-spacing:.12em;
-    padding:12px 26px;border-radius:999px;color:#fff;background:linear-gradient(135deg,#f7a7c8,#c79bf0);
-    box-shadow:0 10px 22px rgba(199,155,240,.36);transition:transform .2s var(--ease),opacity .3s ease}
+    padding:12px 26px;border-radius:999px;color:#2a1f4a;
+    background:linear-gradient(135deg,#ffe1ef,#cdd4ff);
+    box-shadow:0 10px 26px rgba(180,170,255,.32);transition:transform .2s var(--ease),opacity .3s ease}
   .blow-btn:active{transform:scale(.97)}
-  .blow-btn.is-done{opacity:.45;pointer-events:none}
-  .wish{margin:10px 0 0;font-size:13px;letter-spacing:.12em;line-height:1.8;color:var(--violet);
+  .blow-btn.is-done{opacity:.35;pointer-events:none}
+  .wish{margin:12px 0 0;font-size:13px;letter-spacing:.12em;line-height:1.8;color:#ffd9ea;
     opacity:0;transform:translateY(8px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
   .wish.is-in{opacity:1;transform:none}
+  .night-mini{margin-top:14px;color:rgba(214,205,255,.6)}
+  .night-mini:hover{color:#fff;background:rgba(255,255,255,.08)}
 
-  .down-hint{position:fixed;left:50%;bottom:calc(var(--pad-b) + 10px);transform:translateX(-50%);
-    z-index:5;padding:7px 14px;border-radius:999px;background:rgba(255,255,255,.85);
-    font-size:12px;color:var(--ink-soft);box-shadow:0 6px 16px rgba(96,72,168,.14);
-    animation:tipFloat 2.6s ease-in-out infinite;pointer-events:none;opacity:0;transition:opacity .4s ease}
-  .down-hint.is-in{opacity:1}
+  .night-bokeh{position:absolute;border-radius:50%;pointer-events:none;filter:blur(1.5px);opacity:.5;mix-blend-mode:screen}
+  .nb1{width:16px;height:16px;left:9%;top:24%;background:radial-gradient(circle,#ffd9ea,#ff9ec4 62%,transparent 72%);animation:floaty 9s ease-in-out infinite}
+  .nb2{width:26px;height:26px;right:8%;top:18%;background:radial-gradient(circle,#d8ecff,#8ecbf5 62%,transparent 72%);animation:floaty 12s ease-in-out infinite 1.2s}
+  .nb3{width:10px;height:10px;left:16%;top:62%;background:radial-gradient(circle,#efe6ff,#b8a6ff 62%,transparent 72%);animation:floaty 10s ease-in-out infinite .6s}
+  .nb4{width:20px;height:20px;right:14%;top:58%;background:radial-gradient(circle,#ffe7d4,#ffb98a 62%,transparent 72%);animation:floaty 14s ease-in-out infinite 2s}
+  .nb5{width:12px;height:12px;left:44%;top:12%;background:radial-gradient(circle,#ffffff,#cfe4ff 62%,transparent 72%);animation:floaty 11s ease-in-out infinite 1.6s}
+  .shoot{position:absolute;width:110px;height:1.5px;border-radius:2px;pointer-events:none;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.9));opacity:0;transform:rotate(24deg)}
+  .shoot.s1{left:6%;top:18%;animation:shoot 7s ease-in infinite 1.5s}
+  .shoot.s2{right:10%;top:34%;animation:shoot 9s ease-in infinite 4s}
+  @keyframes shoot{0%{opacity:0;transform:translate(0,0) rotate(24deg) scaleX(.2)}
+    12%{opacity:.5;transform:translate(60px,26px) rotate(24deg) scaleX(1)}
+    30%{opacity:0;transform:translate(160px,70px) rotate(24deg) scaleX(1)}
+    100%{opacity:0}}
 
   @media (prefers-reduced-motion:reduce){
-    .aurora,.bokeh,.stars,.box,.halo,.egg__eyes,.egg__arm,.egg.is-pop .egg__bob,.peek,.gift-btn::before,.gift-btn::after,.flame,.tip,.bunting,.pennant,.down-hint{animation:none!important}
+    .aurora,.bokeh,.stars,.flame,.seal__glow,.seal__hint,.egg__eyes,.egg__arm,.is-pop .egg__bob,.peek,.gift-btn::before,.shoot{animation:none!important}
     .layer{transition-duration:.01s}
     .candle.is-out .smoke path{animation:none}
   }
   @media (max-height:720px){
     .hint{display:none}
-    .giftwrap{width:min(50vw,176px)}
+    .env-wrap{width:min(70vw,300px)}
     .sub{margin-top:8px}
   }
 </style>
@@ -238,17 +284,13 @@
           <stop offset="0" stop-color="#fff" stop-opacity=".5"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/>
         </radialGradient>
       </defs>
-
       <ellipse cx="100" cy="222" rx="46" ry="8" fill="#5b46a8" opacity=".14"/>
       <ellipse cx="74" cy="210" rx="15" ry="9" fill="#242433"/>
       <ellipse cx="126" cy="210" rx="15" ry="9" fill="#242433"/>
-
       <path d="M100 30c46 0 74 64 74 112 0 40-32 66-74 66s-74-26-74-66C26 94 54 30 100 30Z" fill="url(#eggBody)"/>
       <ellipse cx="72" cy="76" rx="26" ry="19" fill="url(#eggShine)" transform="rotate(-18 72 76)"/>
-
       <path d="M28 138c-14 4-20 14-16 22 4 8 16 8 24-2" fill="none" stroke="#242433" stroke-width="11" stroke-linecap="round"/>
       <path class="egg__arm" d="M172 134c14 2 22 12 19 21-3 9-15 10-24 1" fill="none" stroke="#242433" stroke-width="11" stroke-linecap="round"/>
-
       <g class="egg__eyes">
         <ellipse cx="76" cy="138" rx="13" ry="15" fill="#ffffff"/>
         <ellipse cx="124" cy="138" rx="13" ry="15" fill="#ffffff"/>
@@ -259,11 +301,9 @@
         <circle cx="75" cy="145" r="1.6" fill="#ffffff" opacity=".85"/>
         <circle cx="123" cy="145" r="1.6" fill="#ffffff" opacity=".85"/>
       </g>
-
       <ellipse cx="54" cy="162" rx="11.5" ry="7" fill="#ff9ec4" opacity=".6"/>
       <ellipse cx="146" cy="162" rx="11.5" ry="7" fill="#ff9ec4" opacity=".6"/>
       <path d="M92 163c3.8 6.4 12.4 6.4 16 0" fill="none" stroke="#14141f" stroke-width="3.4" stroke-linecap="round"/>
-
       <g transform="translate(126 36) rotate(15)">
         <path d="M0 0 16-46 32 0Z" fill="url(#hatG)"/>
         <circle cx="16" cy="-48" r="6.6" fill="#fff6fb"/>
@@ -274,169 +314,192 @@
 </template>
 
 <div class="stage">
-  <section class="layer" id="intro" aria-label="生日礼物">
+  <!-- ========== 一 · 信封 ========== -->
+  <section class="layer" id="cover" aria-label="生日信">
     <div class="inner">
-      <p class="eyebrow">迟 到 的 生 日 贺 卡</p>
-      <h1><span class="name">曾祥婷</span>，十八岁快乐</h1>
-      <p class="sub">补上的这一份，<b>不算晚</b></p>
+      <p class="eyebrow">一 封 迟 到 的 生 日 信</p>
+      <h1><span class="name">曾祥婷</span> 亲启</h1>
+      <p class="sub">迟到了几天，但<b>不算晚</b></p>
 
-      <div class="giftwrap" id="giftwrap">
-        <div class="halo" aria-hidden="true"></div>
-        <div class="tip">里面有只小黑蛋</div>
-        <div class="egg-pos" id="eggSlot"></div>
+      <div class="env-wrap" id="envWrap">
+        <div class="env" id="env">
+          <div class="env__back"></div>
+          <div class="env__letter"></div>
+          <div class="env__clip"><div class="env__pocket"></div></div>
+          <div class="stamp"><b>18</b><i>Z · X · T</i></div>
+          <div class="env__flap"></div>
+          <div class="env-egg" id="envEgg"></div>
 
-        <svg class="box" id="box" viewBox="0 0 240 210" role="img" aria-label="礼物盒">
-          <defs>
-            <linearGradient id="boxFront" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#b4dcf7"/><stop offset="1" stop-color="#83b7e9"/>
-            </linearGradient>
-            <linearGradient id="lidG" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#ffe0ec"/><stop offset="1" stop-color="#ffa9cc"/>
-            </linearGradient>
-            <linearGradient id="ribbonG" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#ffbcd8"/><stop offset="1" stop-color="#ff85b6"/>
-            </linearGradient>
-            <radialGradient id="glowIn" cx="50%" cy="50%" r="50%">
-              <stop offset="0" stop-color="#fff3fa" stop-opacity=".95"/><stop offset="100%" stop-color="#ffe0ef" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
+          <button class="seal" id="seal" type="button" aria-label="轻触火漆，拆开信封">
+            <span class="seal__glow"></span>
+            <span class="seal__half l">
+              <svg viewBox="0 0 100 100" aria-hidden="true">
+                <defs>
+                  <radialGradient id="waxG" cx="36%" cy="28%" r="80%">
+                    <stop offset="0" stop-color="#ffd3e6"/>
+                    <stop offset="52%" stop-color="#f78bb9"/>
+                    <stop offset="100%" stop-color="#a83c74"/>
+                  </radialGradient>
+                </defs>
+                <circle cx="50" cy="50" r="44" fill="url(#waxG)"/>
+                <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.4"/>
+                <circle cx="50" cy="50" r="35" fill="none" stroke="rgba(110,30,70,.35)" stroke-width="1.2"/>
+                <path d="M50 67c-6.4-5.8-14.6-11-14.6-18.2 0-4.8 3.7-8.2 8.2-8.2 2.7 0 5 1.3 6.4 3.2 1.4-1.9 3.7-3.2 6.4-3.2 4.5 0 8.2 3.4 8.2 8.2C64.6 56 56.4 61.2 50 67Z" fill="rgba(255,255,255,.92)"/>
+                <circle cx="50" cy="50" r="47" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="4"/>
+              </svg>
+            </span>
+            <span class="seal__half r">
+              <svg viewBox="0 0 100 100" aria-hidden="true">
+                <circle cx="50" cy="50" r="44" fill="url(#waxG)"/>
+                <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.4"/>
+                <circle cx="50" cy="50" r="35" fill="none" stroke="rgba(110,30,70,.35)" stroke-width="1.2"/>
+                <path d="M50 67c-6.4-5.8-14.6-11-14.6-18.2 0-4.8 3.7-8.2 8.2-8.2 2.7 0 5 1.3 6.4 3.2 1.4-1.9 3.7-3.2 6.4-3.2 4.5 0 8.2 3.4 8.2 8.2C64.6 56 56.4 61.2 50 67Z" fill="rgba(255,255,255,.92)"/>
+                <circle cx="50" cy="50" r="47" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="4"/>
+              </svg>
+            </span>
+            <span class="seal__crack"></span>
+          </button>
 
-          <ellipse cx="120" cy="120" rx="66" ry="42" fill="url(#glowIn)" opacity=".75"/>
-
-          <g class="box-body">
-            <rect x="30" y="96" width="180" height="92" rx="14" fill="url(#boxFront)"/>
-            <rect x="30" y="96" width="180" height="92" rx="14" fill="none" stroke="#fff" stroke-opacity=".55"/>
-            <path d="M30 118h180" stroke="#fff" stroke-opacity=".32" stroke-width="2"/>
-            <rect x="106" y="96" width="28" height="92" fill="url(#ribbonG)"/>
-            <path d="M44 186h152" stroke="#5b46a8" stroke-opacity=".12" stroke-width="3"/>
-          </g>
-
-          <g class="lid">
-            <rect x="16" y="60" width="208" height="42" rx="13" fill="url(#lidG)"/>
-            <rect x="16" y="60" width="208" height="42" rx="13" fill="none" stroke="#fff" stroke-opacity=".6"/>
-            <rect x="106" y="60" width="28" height="42" fill="url(#ribbonG)"/>
-            <ellipse cx="92" cy="50" rx="25" ry="15" fill="#ff9ec4" transform="rotate(-20 92 50)"/>
-            <ellipse cx="148" cy="50" rx="25" ry="15" fill="#ff9ec4" transform="rotate(20 148 50)"/>
-            <ellipse cx="92" cy="50" rx="16" ry="9" fill="#ffc6dc" transform="rotate(-20 92 50)"/>
-            <ellipse cx="148" cy="50" rx="16" ry="9" fill="#ffc6dc" transform="rotate(20 148 50)"/>
-            <circle cx="120" cy="50" r="11.5" fill="#ffb0d2"/>
-            <circle cx="120" cy="50" r="6" fill="#ffe1ee"/>
-          </g>
-
-          <g fill="#fff">
-            <path d="M44 58l2.6 6 6 2.6-6 2.6-2.6 6-2.6-6-6-2.6 6-2.6z" opacity=".8"/>
-            <path d="M196 40l2 4.6 4.6 2-4.6 2-2 4.6-2-4.6-4.6-2 4.6-2z" opacity=".65"/>
-          </g>
-        </svg>
+        </div>
       </div>
 
-      <div class="btn-wrap" id="btnwrap">
-        <button class="gift-btn" id="giftBtn" type="button">点我拆礼物</button>
-        <p class="hint">也可以直接戳一戳礼物盒</p>
+      <div class="btn-wrap">
+        <button class="gift-btn" id="openBtn" type="button">点我拆礼物</button>
+        <p class="hint">也可以直接戳火漆印</p>
       </div>
     </div>
   </section>
 
-  <section class="layer" id="finale" aria-label="生日祝福">
-    <div class="inner finale-inner">
-      <svg class="bunting" id="bunting" viewBox="0 0 440 96" aria-hidden="true"></svg>
-
+  <!-- ========== 二 · 信纸 ========== -->
+  <section class="layer" id="letter" aria-label="生日祝福">
+    <div class="inner">
       <div class="peek" id="peek" aria-hidden="true"></div>
 
-      <section class="card" id="card" aria-live="polite">
-        <span class="tape l" aria-hidden="true"></span>
-        <span class="tape r" aria-hidden="true"></span>
-        <p class="card__tag">拆 开 啦</p>
+      <section class="letter-card" id="letterCard" aria-live="polite">
+        <p class="card__tag">读 到 这 里</p>
         <p class="card__title">十八岁，生日快乐</p>
         <p class="card__line">迟到了几天，但祝福<em>没有保质期</em>。</p>
         <p class="card__line">十八岁往后的日子，想做的事都做成，想见的人都在身边。</p>
         <p class="card__line">难过的时候别硬扛，<em>我一直都在</em>。</p>
-        <p class="card__sign" id="sign">—— 补上的生日 · 蛋小黑代送</p>
+        <p class="card__sign">—— 补上的生日 · 蛋小黑代送</p>
         <div class="card-bar">
-          <button class="mini" id="replay" type="button">再看一次</button>
+          <button class="mini" id="replay" type="button">再看一遍</button>
           <span class="dot" aria-hidden="true"></span>
           <button class="mini" id="soundBtn" type="button" aria-pressed="true">音乐：开</button>
         </div>
       </section>
 
+      <button class="to-cake" id="toCake" type="button">去看蛋糕 · 许个愿 ↓</button>
+    </div>
+  </section>
+
+  <!-- ========== 三 · 星空蛋糕 ========== -->
+  <section class="layer" id="cakeScene" aria-label="许愿蛋糕">
+    <span class="shoot s1" aria-hidden="true"></span>
+    <span class="shoot s2" aria-hidden="true"></span>
+    <span class="night-bokeh nb1" aria-hidden="true"></span>
+    <span class="night-bokeh nb2" aria-hidden="true"></span>
+    <span class="night-bokeh nb3" aria-hidden="true"></span>
+    <span class="night-bokeh nb4" aria-hidden="true"></span>
+    <span class="night-bokeh nb5" aria-hidden="true"></span>
+    <div class="inner night-inner">
+      <p class="night-eyebrow">A LITTLE UNIVERSE, JUST FOR YOU</p>
+      <h2 class="night-title">把星河予你</h2>
+      <p class="night-sub">曾祥婷 · 十八岁</p>
+
       <div class="cake-wrap">
-        <svg id="cake" viewBox="0 108 320 330" role="img" aria-label="三层生日蛋糕，上面插着十八根蜡烛">
-          <defs>
-            <linearGradient id="tier1G" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#ffd6e6"/><stop offset="1" stop-color="#ffaecd"/>
-            </linearGradient>
-            <linearGradient id="tier2G" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#fff6fa"/><stop offset="1" stop-color="#ffe4ef"/>
-            </linearGradient>
-            <linearGradient id="tier3G" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#ffe0ec"/><stop offset="1" stop-color="#ffc3da"/>
-            </linearGradient>
-            <linearGradient id="plateG" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e9e3fb"/>
-            </linearGradient>
-            <linearGradient id="candleG" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#ffffff"/><stop offset=".5" stop-color="#ffd9e8"/><stop offset="1" stop-color="#ffb4d2"/>
-            </linearGradient>
-            <radialGradient id="flameG" cx="50%" cy="72%" r="62%">
-              <stop offset="0" stop-color="#fffdf0"/><stop offset=".45" stop-color="#ffdf8e"/><stop offset="1" stop-color="#ff9d4d"/>
-            </radialGradient>
-            <radialGradient id="flameGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0" stop-color="#ffe6a6" stop-opacity=".85"/><stop offset="1" stop-color="#ffe6a6" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
+        <svg id="cake" viewBox="0 134 340 288" role="img" aria-label="三层星空蛋糕，插着十八根蜡烛">
+  <defs>
+    <linearGradient id="tierG" x1="0.1" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#46578f"/><stop offset="38%" stop-color="#2b3766"/><stop offset="100%" stop-color="#141a36"/>
+    </linearGradient>
+    <linearGradient id="tierTop" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#6879b4"/><stop offset="100%" stop-color="#3d4b80"/>
+    </linearGradient>
+    <linearGradient id="sideShade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#05061a" stop-opacity=".55"/>
+    </linearGradient>
+    <radialGradient id="nebPink" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ff9ec4" stop-opacity=".5"/><stop offset="100%" stop-color="#ff9ec4" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="nebBlue" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#9fd4ff" stop-opacity=".45"/><stop offset="100%" stop-color="#9fd4ff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="plateG" x1="0" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="55%" stop-color="#eef2ff"/><stop offset="100%" stop-color="#ccd5f2"/>
+    </linearGradient>
+    <radialGradient id="cakeGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#8b7bff" stop-opacity=".55"/><stop offset="100%" stop-color="#8b7bff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ribbonG3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".95"/><stop offset="50%" stop-color="#dfe6ff" stop-opacity=".75"/><stop offset="100%" stop-color="#ffffff" stop-opacity=".9"/>
+    </linearGradient>
+    <radialGradient id="flameG2" cx="50%" cy="72%" r="62%">
+      <stop offset="0" stop-color="#fffdf0"/><stop offset=".45" stop-color="#ffdf8e"/><stop offset="1" stop-color="#ff9d4d"/>
+    </radialGradient>
+    <radialGradient id="flameGlow2" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ffd98a" stop-opacity=".9"/><stop offset="100%" stop-color="#ffd98a" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="clip1"><path d="M34 306h272v56c0 16-60 25-136 25s-136-9-136-25z"/></clipPath>
+    <clipPath id="clip2"><path d="M72 240h196v48c0 13-44 20-98 20s-98-7-98-20z"/></clipPath>
+    <clipPath id="clip3"><path d="M104 180h132v44c0 10-30 16-66 16s-66-6-66-16z"/></clipPath>
+  </defs>
 
-          <ellipse cx="160" cy="404" rx="136" ry="14" fill="#5b46a8" opacity=".12"/>
-          <ellipse cx="160" cy="398" rx="150" ry="16" fill="url(#plateG)"/>
-          <ellipse cx="160" cy="394" rx="134" ry="12" fill="#ffffff"/>
+  <ellipse cx="170" cy="320" rx="168" ry="130" fill="url(#cakeGlow)"/>
+  <ellipse cx="170" cy="406" rx="140" ry="14" fill="#0b0818" opacity=".55"/>
+  <ellipse cx="170" cy="404" rx="138" ry="13.5" fill="url(#plateG)"/>
+  <ellipse cx="170" cy="401" rx="112" ry="9.5" fill="#ffffff"/>
 
-          <!-- 下层 -->
-          <rect x="22" y="322" width="276" height="72" rx="12" fill="url(#tier1G)"/>
-          <ellipse cx="160" cy="322" rx="138" ry="20" fill="#fff4f9"/>
-          <g fill="#ffffff" opacity=".92">
-            <circle cx="46" cy="330" r="8"/><circle cx="88" cy="334" r="9"/><circle cx="130" cy="331" r="8"/>
-            <circle cx="172" cy="334" r="9"/><circle cx="214" cy="331" r="8"/><circle cx="256" cy="334" r="9"/><circle cx="288" cy="330" r="7"/>
-          </g>
-          <text x="160" y="366" text-anchor="middle" font-size="11" letter-spacing="4" fill="#ffffff" opacity=".9">HAPPY BIRTHDAY</text>
-          <g fill="#e0578f" opacity=".8">
-            <circle cx="54" cy="382" r="4"/><circle cx="112" cy="386" r="3.4"/><circle cx="206" cy="386" r="3.4"/><circle cx="264" cy="382" r="4"/>
-          </g>
+  <g clip-path="url(#clip1)">
+    <path d="M34 306h272v56c0 16-60 25-136 25s-136-9-136-25z" fill="url(#tierG)"/>
+    <ellipse cx="96" cy="336" rx="80" ry="36" fill="url(#nebPink)"/>
+    <ellipse cx="252" cy="366" rx="70" ry="30" fill="url(#nebBlue)"/>
+    <g class="speckles" data-clip="1"></g>
+    <rect x="30" y="306" width="280" height="82" fill="url(#sideShade)"/>
+  </g>
+  <ellipse cx="170" cy="306" rx="136" ry="20" fill="url(#tierTop)"/>
+  <ellipse cx="170" cy="306" rx="136" ry="20" fill="none" stroke="rgba(236,243,255,.95)" stroke-width="2.4"/>
 
-          <!-- 中层 -->
-          <rect x="56" y="252" width="208" height="66" rx="10" fill="url(#tier2G)"/>
-          <ellipse cx="160" cy="252" rx="104" ry="17" fill="#fffafc"/>
-          <g fill="#ffffff" opacity=".95">
-            <circle cx="78" cy="259" r="7"/><circle cx="112" cy="263" r="7.5"/><circle cx="146" cy="260" r="7"/>
-            <circle cx="186" cy="260" r="7"/><circle cx="220" cy="263" r="7.5"/><circle cx="248" cy="259" r="7"/>
-          </g>
-          <g fill="#ffffff" opacity=".9">
-            <circle cx="82" cy="300" r="2.4"/><circle cx="112" cy="306" r="2.2"/><circle cx="208" cy="306" r="2.2"/><circle cx="238" cy="300" r="2.4"/>
-          </g>
-          <circle cx="160" cy="292" r="17" fill="#ff9ec4"/>
-          <circle cx="160" cy="292" r="17" fill="none" stroke="#ffffff" stroke-opacity=".7"/>
-          <text x="160" y="298" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">18</text>
+  <g clip-path="url(#clip2)">
+    <path d="M72 240h196v48c0 13-44 20-98 20s-98-7-98-20z" fill="url(#tierG)"/>
+    <ellipse cx="132" cy="264" rx="62" ry="28" fill="url(#nebBlue)"/>
+    <ellipse cx="226" cy="292" rx="52" ry="24" fill="url(#nebPink)"/>
+    <g class="speckles" data-clip="2"></g>
+    <rect x="70" y="240" width="200" height="70" fill="url(#sideShade)"/>
+  </g>
+  <ellipse cx="170" cy="240" rx="98" ry="16" fill="url(#tierTop)"/>
+  <ellipse cx="170" cy="240" rx="98" ry="16" fill="none" stroke="rgba(236,243,255,.9)" stroke-width="2"/>
 
-          <!-- 上层 -->
-          <rect x="90" y="186" width="140" height="66" rx="10" fill="url(#tier3G)"/>
-          <ellipse cx="160" cy="186" rx="70" ry="13" fill="#fff8fc"/>
-          <g fill="#ffffff" opacity=".95">
-            <circle cx="108" cy="192" r="6"/><circle cx="140" cy="195" r="6.5"/><circle cx="180" cy="195" r="6.5"/><circle cx="212" cy="192" r="6"/>
-          </g>
-          <g fill="#e0578f" opacity=".75">
-            <circle cx="118" cy="228" r="4"/><circle cx="160" cy="234" r="4.6"/><circle cx="202" cy="228" r="4"/>
-          </g>
+  <g clip-path="url(#clip3)">
+    <path d="M104 180h132v44c0 10-30 16-66 16s-66-6-66-16z" fill="url(#tierG)"/>
+    <ellipse cx="150" cy="204" rx="44" ry="22" fill="url(#nebPink)"/>
+    <ellipse cx="198" cy="218" rx="38" ry="18" fill="url(#nebBlue)"/>
+    <g class="speckles" data-clip="3"></g>
+    <rect x="102" y="180" width="136" height="60" fill="url(#sideShade)"/>
+  </g>
+  <ellipse cx="170" cy="180" rx="66" ry="12" fill="url(#tierTop)"/>
+  <ellipse cx="170" cy="180" rx="66" ry="12" fill="none" stroke="rgba(236,243,255,.95)" stroke-width="2"/>
 
-          <!-- 十八根蜡烛 -->
-          <g id="candleLayer"></g>
-        </svg>
+  <!-- 缎带：每层底部一圈 -->
+  <path d="M40 366C100 380 240 380 300 366" fill="none" stroke="rgba(8,6,24,.45)" stroke-width="15" stroke-linecap="round" opacity=".5"/>
+  <path d="M40 364C100 378 240 378 300 364" fill="none" stroke="url(#ribbonG3)" stroke-width="9" stroke-linecap="round"/>
+  <path d="M40 364C100 378 240 378 300 364" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity=".95"/>
+  <path d="M78 292C120 304 220 304 262 292" fill="none" stroke="url(#ribbonG3)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M78 292C120 304 220 304 262 292" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" opacity=".95"/>
+  <path d="M112 226C142 234 198 234 228 226" fill="none" stroke="url(#ribbonG3)" stroke-width="7" stroke-linecap="round"/>
+  <path d="M112 226C142 234 198 234 228 226" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" opacity=".95"/>
+
+  <g id="candleLayer"></g>
+</svg>
       </div>
 
       <p class="cake-hint" id="cakeHint">十八根蜡烛，替她吹一下吧</p>
       <button class="blow-btn" id="blowBtn" type="button">吹蜡烛 · 许个愿</button>
-      <p class="wish" id="wish">愿望收好啦 —— 愿十八岁的你，万事顺意，岁岁欢喜。</p>
+      <p class="wish" id="wish">愿望收好啦 —— 愿十八岁的你，<br>万事顺意，岁岁欢喜。</p>
+      <button class="mini night-mini" id="backLetter" type="button">回去再看看信</button>
     </div>
   </section>
 </div>
-<p class="down-hint" id="downHint">↓ 下面还有蛋糕</p>
 
 <script>
 (function () {
@@ -444,7 +507,7 @@
   var reduce = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   var $ = function (id) { return document.getElementById(id); };
 
-  /* ================= 粒子：樱花 / 满天星 / 撒花 ================= */
+  /* ================= 粒子 ================= */
   var cvs = $("fx"), ctx = cvs.getContext("2d");
   var cvsTop = $("fxTop"), ctxTop = cvsTop.getContext("2d");
   var W = 0, H = 0, DPR = 1;
@@ -455,7 +518,6 @@
     "rgba(191,227,255,.9)", "rgba(214,198,255,.85)"
   ];
   function rand(a, b) { return a + Math.random() * (b - a); }
-
   function resize() {
     DPR = Math.min(window.devicePixelRatio || 1, 2);
     W = window.innerWidth; H = window.innerHeight;
@@ -514,7 +576,6 @@
     if (!W || !H) return;
     ctx.clearRect(0, 0, W, H);
     ctxTop.clearRect(0, 0, W, H);
-
     var i, s;
     for (i = 0; i < sparks.length; i++) {
       s = sparks[i];
@@ -556,7 +617,6 @@
   }
   function startLoop() { if (!raf) { last = performance.now(); raf = requestAnimationFrame(loop); } }
   function stopLoop() { if (raf) { cancelAnimationFrame(raf); raf = 0; } }
-
   function confetti(x, y, n) {
     var colors = ["#ff9ec4", "#ffd3e4", "#8fcbf2", "#a58ce8", "#ffffff", "#ffe9a8"];
     for (var i = 0; i < n; i++) {
@@ -574,7 +634,7 @@
     confetti(r.left + r.width / 2, r.top + r.height * .45, n || 40);
   }
 
-  /* ================= 音频：轻柔背景乐（八音盒 + 弦垫） ================= */
+  /* ================= 音频 ================= */
   var actx = null, music = null, soundOn = true;
   function ac() {
     if (!actx) {
@@ -589,9 +649,7 @@
     var len = Math.floor(a.sampleRate * seconds), buf = a.createBuffer(2, len, a.sampleRate);
     for (var ch = 0; ch < 2; ch++) {
       var d = buf.getChannelData(ch);
-      for (var i = 0; i < len; i++) {
-        d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, decay);
-      }
+      for (var i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, decay);
     }
     return buf;
   }
@@ -616,14 +674,8 @@
     o.connect(g); o2.connect(g); g.connect(dest);
     o.start(at); o2.start(at); o.stop(at + 2.2); o2.stop(at + 2.2);
   }
-  var CHORDS = [
-    [110.00, 138.59, 164.81],
-    [82.41, 123.47, 164.81],
-    [92.50, 110.00, 138.59],
-    [73.42, 110.00, 146.83]
-  ];
+  var CHORDS = [[110.00, 138.59, 164.81], [82.41, 123.47, 164.81], [92.50, 110.00, 138.59], [73.42, 110.00, 146.83]];
   var BELLS = [880.00, 987.77, 1108.73, 1318.51, 1479.98];
-
   function musicTick() {
     if (!music) return;
     var a = music.a, now = a.currentTime;
@@ -634,9 +686,7 @@
       music.chordAt += 4.8;
     }
     while (music.bellAt < now + 2.4) {
-      if (Math.random() < .78) {
-        bell(a, music.master, BELLS[(Math.random() * BELLS.length) | 0], music.bellAt);
-      }
+      if (Math.random() < .78) bell(a, music.master, BELLS[(Math.random() * BELLS.length) | 0], music.bellAt);
       music.bellAt += 1.3 + Math.random() * 1.7;
     }
   }
@@ -689,21 +739,15 @@
     src.connect(f); f.connect(g); g.connect(a.destination); src.start();
   }
 
-  /* ================= 蛋小黑（模板克隆） ================= */
-  var eggTpl = $("eggTpl");
+  /* ================= 蛋小黑 ================= */
   function makeEgg(host, cls) {
-    var clone = eggTpl.content.cloneNode(true);
+    var clone = $("eggTpl").content.cloneNode(true);
     var svg = clone.querySelector("svg");
-    var uid = cls;
-    svg.querySelectorAll("[id]").forEach(function (el) {
-      el.id = uid + "-" + el.id;
-    });
+    svg.querySelectorAll("[id]").forEach(function (el) { el.id = cls + "-" + el.id; });
     svg.querySelectorAll("*").forEach(function (el) {
       for (var i = 0; i < el.attributes.length; i++) {
         var at = el.attributes[i];
-        if (at.value.indexOf("url(#") >= 0) {
-          at.value = at.value.replace(/url\(#/g, "url(#" + uid + "-");
-        }
+        if (at.value.indexOf("url(#") >= 0) at.value = at.value.replace(/url\(#/g, "url(#" + cls + "-");
       }
     });
     host.appendChild(clone);
@@ -712,170 +756,160 @@
     return made;
   }
 
-  /* ================= 小彩旗 ================= */
-  function buildBunting() {
-    var svg = $("bunting"), NS = "http://www.w3.org/2000/svg";
-    var w = 440, h = 96, n = 9;
-    var pts = [];
-    for (var i = 0; i < n; i++) {
-      var x = 24 + i * ((w - 48) / (n - 1));
-      var y = 16 + Math.sin((x / w) * Math.PI) * 26;
-      pts.push([x, y]);
-    }
-    var d = "M" + pts[0][0] + " " + pts[0][1];
-    for (var j = 1; j < pts.length; j++) d += " L" + pts[j][0].toFixed(1) + " " + pts[j][1].toFixed(1);
-    var path = document.createElementNS(NS, "path");
-    path.setAttribute("d", d);
-    path.setAttribute("fill", "none");
-    path.setAttribute("stroke", "#d9c7ef");
-    path.setAttribute("stroke-width", "2");
-    svg.appendChild(path);
-
-    var colors = ["#ffb7d3", "#a9d8f5", "#cfc0ff", "#ffd98f", "#ffb7d3", "#a9d8f5", "#cfc0ff", "#ffd98f", "#ffb7d3"];
-    pts.forEach(function (pt, idx) {
-      var g = document.createElementNS(NS, "g");
-      g.setAttribute("class", "pennant");
-      g.style.animationDelay = (idx * .18) + "s";
-      var tri = document.createElementNS(NS, "path");
-      tri.setAttribute("d", "M" + pt[0] + " " + pt[1] + " l16 0 l-8 26 Z");
-      tri.setAttribute("fill", colors[idx % colors.length]);
-      tri.setAttribute("opacity", ".9");
-      g.appendChild(tri);
-      svg.appendChild(g);
+  /* ================= 蛋糕星屑 ================= */
+  var NS = "http://www.w3.org/2000/svg";
+  var SPECK_BOX = {
+    "1": [34, 306, 306, 382, 56],
+    "2": [72, 242, 268, 306, 30],
+    "3": [104, 180, 236, 238, 18]
+  };
+  function buildSpeckles() {
+    document.querySelectorAll(".speckles").forEach(function (g) {
+      var b = SPECK_BOX[g.getAttribute("data-clip")];
+      if (!b) return;
+      for (var i = 0; i < b[4]; i++) {
+        var c = document.createElementNS(NS, "circle");
+        c.setAttribute("cx", rand(b[0], b[2]).toFixed(1));
+        c.setAttribute("cy", rand(b[1], b[3]).toFixed(1));
+        c.setAttribute("r", rand(.4, 1.4).toFixed(2));
+        c.setAttribute("fill", "#ffffff");
+        c.setAttribute("opacity", rand(.25, .95).toFixed(2));
+        g.appendChild(c);
+      }
     });
-    void h;
   }
 
   /* ================= 十八根蜡烛 ================= */
   var candleEls = [];
   function buildCandles() {
-    var NS = "http://www.w3.org/2000/svg";
     var layer = $("candleLayer");
-    var rows = [
-      { n: 10, y: 181, rx: 54, arch: 5, h: 30 },
-      { n: 8, y: 190, rx: 40, arch: 4, h: 34 }
-    ];
-    rows.forEach(function (row, ri) {
-      for (var i = 0; i < row.n; i++) {
-        var t = i / (row.n - 1);
-        var x = 160 - row.rx + t * row.rx * 2;
-        var y = row.y - Math.sin(t * Math.PI) * row.arch;
-        var hh = row.h + ((i + ri) % 2 ? 2 : -2);
-        var g = document.createElementNS(NS, "g");
-        g.setAttribute("class", "candle");
-        var tip = y - hh;
-        g.innerHTML =
-          '<rect x="' + (x - 3).toFixed(1) + '" y="' + tip.toFixed(1) + '" width="6" height="' + hh + '" rx="3" fill="url(#candleG)"/>' +
-          '<path d="M' + (x - 3).toFixed(1) + ' ' + (tip + 7).toFixed(1) + 'h6 M' + (x - 3).toFixed(1) + ' ' + (tip + 16).toFixed(1) + 'h6" stroke="#ff9ec4" stroke-width="2" stroke-linecap="round" opacity=".55"/>' +
-          '<line x1="' + x.toFixed(1) + '" y1="' + tip.toFixed(1) + '" x2="' + x.toFixed(1) + '" y2="' + (tip - 4).toFixed(1) + '" stroke="#6b5a4a" stroke-width="1.6"/>' +
-          '<g class="smoke"><path d="M' + x.toFixed(1) + ' ' + (tip - 8).toFixed(1) + ' q-5 -8 0 -16 q5 -8 0 -16" fill="none" stroke="#cfc7e3" stroke-width="2" stroke-linecap="round"/></g>' +
-          '<g class="flame">' +
-            '<ellipse cx="' + x.toFixed(1) + '" cy="' + (tip - 15).toFixed(1) + '" rx="10" ry="12" fill="url(#flameGlow)"/>' +
-            '<path d="M' + x.toFixed(1) + ' ' + (tip - 26).toFixed(1) + 'c6 5 8 9 8 13 0 6-3.5 9-8 9s-8-3-8-9c0-4 2-8 8-13Z" fill="url(#flameG)"/>' +
-          '</g>';
-        layer.appendChild(g);
-        candleEls.push(g);
-      }
+    var CX = 170, CY = 180, RX = 58, RY = 10, N = 18;
+    var items = [];
+    for (var i = 0; i < N; i++) {
+      var a = -Math.PI / 2 + i * 2 * Math.PI / N;
+      items.push({ x: CX + RX * Math.cos(a), y: CY + RY * Math.sin(a), h: 26 + (i % 3) * 2 });
+    }
+    items.sort(function (p, q) { return p.y - q.y; });
+    items.forEach(function (it) {
+      var x = it.x, y = it.y, hh = it.h, tip = y - hh;
+      var g = document.createElementNS(NS, "g");
+      g.setAttribute("class", "candle");
+      g.innerHTML =
+        '<rect x="' + (x - 2.5).toFixed(1) + '" y="' + tip.toFixed(1) + '" width="5" height="' + hh + '" rx="2.5" fill="#fffaf2"/>' +
+        '<rect x="' + (x - 2.5).toFixed(1) + '" y="' + tip.toFixed(1) + '" width="2" height="' + hh + '" rx="1" fill="#ffe1ee" opacity=".9"/>' +
+        '<line x1="' + x.toFixed(1) + '" y1="' + tip.toFixed(1) + '" x2="' + x.toFixed(1) + '" y2="' + (tip - 3.5).toFixed(1) + '" stroke="#6b5a4a" stroke-width="1.4"/>' +
+        '<g class="smoke"><path d="M' + x.toFixed(1) + ' ' + (tip - 7).toFixed(1) + ' q-4 -7 0 -14 q4 -7 0 -14" fill="none" stroke="#cfc7e3" stroke-width="1.8" stroke-linecap="round"/></g>' +
+        '<g class="flame">' +
+          '<ellipse cx="' + x.toFixed(1) + '" cy="' + (tip - 13).toFixed(1) + '" rx="6.4" ry="7.8" fill="url(#flameGlow2)"/>' +
+          '<path d="M' + x.toFixed(1) + ' ' + (tip - 22).toFixed(1) + 'c4.2 3.6 5.6 6.4 5.6 9.2 0 4.2-2.5 6.6-5.6 6.6s-5.6-2.4-5.6-6.6c0-2.8 1.4-5.6 5.6-9.2Z" fill="url(#flameG2)"/>' +
+        '</g>';
+      layer.appendChild(g);
+      candleEls.push(g);
     });
   }
 
-  /* ================= 交互 ================= */
-  var intro = $("intro"), finale = $("finale"), giftwrap = $("giftwrap"), box = $("box"), card = $("card");
-  var egg = makeEgg($("eggSlot"), "egg");
+  /* ================= 场景 ================= */
+  var cover = $("cover"), letter = $("letter"), cakeScene = $("cakeScene");
+  var env = $("env"), envEgg = $("envEgg"), letterCard = $("letterCard");
+  var opened = false, busy = false, blown = false, current = "cover";
+  makeEgg(envEgg, "egg");
   makeEgg($("peek"), "peek-art");
-  var blowBtn = $("blowBtn"), wish = $("wish"), cakeHint = $("cakeHint"), downHint = $("downHint");
-  var opened = false, busy = false, blown = false;
 
-  function showFinale() {
-    finale.classList.add("is-visible");
-    intro.classList.remove("is-visible");
-    var bits = card.querySelectorAll(".card__tag,.card__title,.card__line,.card__sign");
-    for (var b = 0; b < bits.length; b++) bits[b].style.transitionDelay = (0.06 + b * 0.12) + "s";
-    setTimeout(function () {
-      card.classList.add("is-in");
-      burstAt($("peek"), reduce ? 10 : 34);
-      busy = false;
-      setTimeout(function () {
-        if (finale.scrollHeight > finale.clientHeight + 30) {
-          downHint.classList.add("is-in");
-          setTimeout(function () { downHint.classList.remove("is-in"); }, 4200);
-        }
-      }, 900);
-    }, reduce ? 30 : 480);
+  var SCENES = { cover: cover, letter: letter, cake: cakeScene };
+  function show(name) {
+    current = name;
+    for (var k in SCENES) SCENES[k].classList.toggle("is-visible", k === name);
   }
-  function openGift() {
+  function go(name, wait) {
+    current = name;
+    for (var k in SCENES) SCENES[k].classList.remove("is-visible");
+    setTimeout(function () { SCENES[name].classList.add("is-visible"); }, wait || 320);
+  }
+  function staggerCard() {
+    var bits = letterCard.querySelectorAll(".card__tag,.card__title,.card__line,.card__sign");
+    for (var b = 0; b < bits.length; b++) bits[b].style.transitionDelay = (0.05 + b * 0.11) + "s";
+  }
+
+  function openEnvelope() {
     if (opened || busy) return;
     opened = true; busy = true;
-    box.classList.remove("is-shake");
-    void box.offsetWidth;
-    box.classList.add("is-shake");
-    burstAt(giftwrap, reduce ? 12 : 40);
     startMusic();
+    var seal = $("seal");
+    burstAt(seal, reduce ? 12 : 26);
+    env.classList.add("is-crack");
     setTimeout(function () {
-      box.classList.add("is-open");
-      egg.classList.add("is-pop");
+      env.classList.add("is-open");
+      burstAt(seal, reduce ? 10 : 32);
+    }, reduce ? 60 : 300);
+    setTimeout(function () {
+      $("envEgg").classList.add("is-pop");
       chime();
-      burstAt(egg, reduce ? 16 : 64);
-      setTimeout(showFinale, reduce ? 60 : 840);
-    }, reduce ? 60 : 620);
+      burstAt(envEgg, reduce ? 14 : 46);
+    }, reduce ? 380 : 900);
+    setTimeout(function () {
+      go("letter", reduce ? 40 : 420);
+      staggerCard();
+      setTimeout(function () {
+        letterCard.classList.add("is-in");
+        busy = false;
+      }, reduce ? 60 : 460);
+      setTimeout(function () { burstAt($("peek"), reduce ? 12 : 36); }, reduce ? 500 : 1100);
+    }, reduce ? 760 : 1500);
   }
+
   function blow() {
-    if (blown || !opened) return;
+    if (blown || current !== "cake") return;
     blown = true;
     whoosh();
-    blowBtn.classList.add("is-done");
+    $("blowBtn").classList.add("is-done");
     candleEls.forEach(function (c, i) {
       setTimeout(function () { c.classList.add("is-out"); }, i * 75);
     });
     setTimeout(function () {
-      wish.classList.add("is-in");
-      cakeHint.textContent = "十八岁，愿望会实现的";
+      $("wish").classList.add("is-in");
+      $("cakeHint").textContent = "十八岁，愿望会实现的";
       var r = $("cake").getBoundingClientRect();
-      confetti(r.left + r.width / 2, r.top + r.height * .3, reduce ? 16 : 70);
+      confetti(r.left + r.width / 2, r.top + r.height * .18, reduce ? 16 : 80);
       setTimeout(function () {
-        confetti(r.left + r.width * .22, r.top + r.height * .34, reduce ? 10 : 34);
-        confetti(r.left + r.width * .78, r.top + r.height * .32, reduce ? 10 : 34);
+        confetti(r.left + r.width * .2, r.top + r.height * .26, reduce ? 10 : 34);
+        confetti(r.left + r.width * .8, r.top + r.height * .24, reduce ? 10 : 34);
       }, 260);
       chime();
     }, 320 + candleEls.length * 75);
   }
+
   function resetAll() {
-    finale.classList.remove("is-visible");
-    intro.classList.add("is-visible");
-    box.classList.remove("is-open", "is-shake");
-    egg.classList.remove("is-pop");
-    card.classList.remove("is-in");
-    blown = false;
-    blowBtn.classList.remove("is-done");
-    wish.classList.remove("is-in");
-    cakeHint.textContent = "十八根蜡烛，替她吹一下吧";
+    opened = false; busy = false; blown = false;
+    env.classList.remove("is-open", "is-crack");
+    $("envEgg").classList.remove("is-pop");
+    letterCard.classList.remove("is-in");
+    $("blowBtn").classList.remove("is-done");
+    $("wish").classList.remove("is-in");
+    $("cakeHint").textContent = "十八根蜡烛，替她吹一下吧";
     candleEls.forEach(function (c) { c.classList.remove("is-out"); });
-    downHint.classList.remove("is-in");
-    opened = false; busy = false;
-    finale.scrollTop = 0;
+    cakeScene.scrollTop = 0; letter.scrollTop = 0;
+    go("cover", 60);
   }
 
-  $("giftBtn").addEventListener("click", openGift);
-  box.addEventListener("click", function (e) { e.preventDefault(); openGift(); });
-  blowBtn.addEventListener("click", blow);
-  $("cake").addEventListener("click", blow);
-
-  egg.addEventListener("click", function (e) {
-    e.stopPropagation();
-    burstAt(egg, reduce ? 8 : 22);
-    var bob = egg.querySelector(".egg__bob");
-    if (bob) {
-      bob.style.transition = "transform .18s ease";
-      bob.style.transform = "scale(1.09)";
-      setTimeout(function () { bob.style.transform = ""; }, 200);
-    }
+  $("seal").addEventListener("click", openEnvelope);
+  $("openBtn").addEventListener("click", openEnvelope);
+  $("toCake").addEventListener("click", function () {
+    go("cake", reduce ? 40 : 360);
+    var c = $("cake");
+    setTimeout(function () {
+      var r = c.getBoundingClientRect();
+      confetti(r.left + r.width / 2, r.top + r.height * .2, reduce ? 10 : 36);
+    }, 260);
   });
+  $("backLetter").addEventListener("click", function () { go("letter", reduce ? 40 : 320); });
+  $("blowBtn").addEventListener("click", blow);
+  $("cake").addEventListener("click", blow);
 
   $("replay").addEventListener("click", function () {
     if (busy) return;
     busy = true;
     resetAll();
-    setTimeout(function () { busy = false; openGift(); }, 420);
+    setTimeout(function () { busy = false; }, 400);
   });
   $("soundBtn").addEventListener("click", function () {
     soundOn = !soundOn;
@@ -898,8 +932,8 @@
     if (document.hidden) stopLoop(); else startLoop();
   });
 
-  intro.classList.add("is-visible");
-  buildBunting();
+  show("cover");
+  buildSpeckles();
   buildCandles();
   seed();
   startLoop();
