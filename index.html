@@ -71,9 +71,11 @@
   #cakeScene{z-index:3;background:radial-gradient(120% 80% at 50% 12%,#2e2456 0%,#1d1638 52%,#120d26 100%)}
   #cakeScene::before{content:"";position:absolute;inset:0;pointer-events:none;
     background:
-      radial-gradient(60% 40% at 18% 30%,rgba(255,158,196,.22),transparent 70%),
-      radial-gradient(50% 36% at 84% 24%,rgba(127,196,239,.20),transparent 70%),
-      radial-gradient(70% 40% at 50% 96%,rgba(140,110,255,.22),transparent 70%)}
+      radial-gradient(58% 38% at 16% 26%,rgba(255,158,196,.30),transparent 70%),
+      radial-gradient(52% 34% at 86% 20%,rgba(127,196,239,.26),transparent 70%),
+      radial-gradient(46% 30% at 72% 62%,rgba(180,140,255,.22),transparent 72%),
+      radial-gradient(40% 26% at 26% 68%,rgba(140,110,255,.26),transparent 72%),
+      radial-gradient(70% 40% at 50% 100%,rgba(120,90,220,.30),transparent 70%)}
   #cakeScene .inner{position:relative;z-index:1}
 
   /* ---------- 首屏 ---------- */
@@ -236,13 +238,6 @@
   .nb3{width:10px;height:10px;left:16%;top:62%;background:radial-gradient(circle,#efe6ff,#b8a6ff 62%,transparent 72%);animation:floaty 10s ease-in-out infinite .6s}
   .nb4{width:20px;height:20px;right:14%;top:58%;background:radial-gradient(circle,#ffe7d4,#ffb98a 62%,transparent 72%);animation:floaty 14s ease-in-out infinite 2s}
   .nb5{width:12px;height:12px;left:44%;top:12%;background:radial-gradient(circle,#ffffff,#cfe4ff 62%,transparent 72%);animation:floaty 11s ease-in-out infinite 1.6s}
-  .rays{position:absolute;left:50%;top:44%;width:min(160vw,760px);aspect-ratio:1;transform:translate(-50%,-50%);
-    background:repeating-conic-gradient(from 0deg at 50% 50%,rgba(255,235,246,.20) 0deg 2.2deg,rgba(255,255,255,0) 2.2deg 11deg);
-    filter:blur(3px);mix-blend-mode:screen;opacity:.38;pointer-events:none;
-    -webkit-mask-image:radial-gradient(circle,#000 0%,rgba(0,0,0,.65) 42%,transparent 68%);
-    mask-image:radial-gradient(circle,#000 0%,rgba(0,0,0,.65) 42%,transparent 68%);
-    animation:raysSpin 46s linear infinite}
-  @keyframes raysSpin{to{transform:translate(-50%,-50%) rotate(360deg)}}
   #cakeScene .cake-wrap{animation:cakeGlow 4.6s ease-in-out infinite}
   @keyframes cakeGlow{0%,100%{filter:drop-shadow(0 18px 30px rgba(120,90,255,.22))}50%{filter:drop-shadow(0 18px 42px rgba(255,150,210,.38))}}
   .shoot{position:absolute;width:110px;height:1.5px;border-radius:2px;pointer-events:none;
@@ -357,7 +352,6 @@
 
   <!-- ========== 三 · 星空蛋糕 ========== -->
   <section class="layer" id="cakeScene" aria-label="许愿蛋糕">
-    <span class="rays" aria-hidden="true"></span>
     <span class="shoot s1" aria-hidden="true"></span>
     <span class="shoot s2" aria-hidden="true"></span>
     <span class="night-bokeh nb1" aria-hidden="true"></span>
@@ -483,7 +477,7 @@
     ["#8fcbf2", "#cfe9ff", "#6fb6ee", "#eaf6ff"],
     ["#b8a6ff", "#e0d6ff", "#8b7bff", "#f3eeff"]
   ];
-  var BOKEH_COLORS = ["255,183,209", "169,216,245", "207,192,255", "255,233,168", "255,255,255"];
+  var BOKEH_COLORS = ["255,183,209", "169,216,245", "207,192,255", "255,233,168", "255,255,255", "255,214,170", "255,170,190"];
   var t0 = performance.now();
   var PETAL_COLORS = [
     "rgba(255,183,209,.95)", "rgba(255,211,227,.92)", "rgba(255,246,251,.95)",
@@ -522,7 +516,7 @@
     for (var i = 0; i < pn; i++) petals.push(makePetal(true));
     for (var j = 0; j < sn; j++) sparks.push(makeSpark(true));
     bokeh = [];
-    for (var b = 0; b < (reduce ? 6 : 16); b++) bokeh.push(makeBokeh(true));
+    for (var b = 0; b < (reduce ? 10 : 40); b++) bokeh.push(makeBokeh(true));
   }
   function drawPetal(p) {
     var sx = Math.cos(p.flip);
@@ -537,33 +531,40 @@
     ctx.fill();
     ctx.restore();
   }
+  var SPRITE = {};
+  function sprite(rgb) {
+    if (SPRITE[rgb]) return SPRITE[rgb];
+    var c = document.createElement("canvas");
+    c.width = c.height = 64;
+    var g = c.getContext("2d");
+    var grd = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+    grd.addColorStop(0, "rgba(" + rgb + ",.95)");
+    grd.addColorStop(.42, "rgba(" + rgb + ",.5)");
+    grd.addColorStop(1, "rgba(" + rgb + ",0)");
+    g.fillStyle = grd;
+    g.beginPath(); g.arc(32, 32, 32, 0, 6.283); g.fill();
+    SPRITE[rgb] = c;
+    return c;
+  }
   function makeBokeh(initial) {
+    var big = Math.random() < .35;
     return {
-      x: rand(0, W), y: initial ? rand(0, H) : rand(H * .6, H),
-      r: rand(7, 30), vy: rand(-22, -6), vx: rand(-5, 5),
-      a: rand(.08, .26), c: BOKEH_COLORS[(Math.random() * BOKEH_COLORS.length) | 0]
+      x: rand(-30, W + 30), y: initial ? rand(0, H) : rand(H * .7, H + 40),
+      r: big ? rand(18, 46) : rand(5, 18),
+      vy: rand(-16, -4), vx: rand(-6, 6),
+      a: big ? rand(.10, .26) : rand(.18, .5),
+      c: BOKEH_COLORS[(Math.random() * BOKEH_COLORS.length) | 0]
     };
   }
   function bubbleBurst(cx, cy, n, power) {
-    var cols = ["255,183,209", "169,216,245", "207,192,255", "255,233,168", "255,255,255", "255,158,196"];
+    var cols = ["255,214,170", "255,233,168", "255,255,255", "255,183,209", "169,216,245", "207,192,255", "255,158,196"];
     for (var i = 0; i < n; i++) {
-      var a = -Math.PI / 2 + rand(-.95, .95), sp = rand(55, 180) * (power || 1);
+      var a = -Math.PI / 2 + rand(-1.1, 1.1), sp = rand(50, 190) * (power || 1);
       bubbles.push({
-        x: cx + rand(-34, 34), y: cy + rand(-10, 10),
-        vx: Math.cos(a) * sp * .5, vy: Math.sin(a) * sp,
-        r: rand(1.8, 6), c: cols[(Math.random() * cols.length) | 0],
-        life: rand(1.1, 2.2), total: 2.2
-      });
-    }
-  }
-  function firework(x, y, n, power) {
-    var pal = PAL[(Math.random() * PAL.length) | 0];
-    for (var i = 0; i < n; i++) {
-      var a = Math.random() * 6.283, sp = rand(50, 250) * (power || 1);
-      fwP.push({
-        x: x, y: y, px: x, py: y,
-        vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 30,
-        life: rand(.7, 1.5), c: pal[(Math.random() * pal.length) | 0], r: rand(1.1, 2.4)
+        x: cx + rand(-40, 40), y: cy + rand(-14, 14),
+        vx: Math.cos(a) * sp * .45, vy: Math.sin(a) * sp * .85,
+        r: rand(2.5, 13), c: cols[(Math.random() * cols.length) | 0],
+        life: rand(1.6, 3.2), total: 3.2
       });
     }
   }
@@ -580,17 +581,12 @@
     }
   }
   function drawBubble(b) {
-    var k = Math.max(0, Math.min(1, b.life / .9));
-    ctx.save();
-    ctx.globalAlpha = k * .7;
-    ctx.fillStyle = "rgba(" + b.c + ",.85)";
-    ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, 6.283); ctx.fill();
-    ctx.globalAlpha = k * .22;
-    ctx.beginPath(); ctx.arc(b.x, b.y, b.r * 2.2, 0, 6.283); ctx.fill();
-    ctx.globalAlpha = k * .5;
-    ctx.fillStyle = "rgba(255,255,255,.9)";
-    ctx.beginPath(); ctx.arc(b.x - b.r * .3, b.y - b.r * .3, b.r * .32, 0, 6.283); ctx.fill();
-    ctx.restore();
+    var k = Math.max(0, Math.min(1, b.life / 1.1));
+    var sp = sprite(b.c), d = b.r * 2;
+    ctxTop.save();
+    ctxTop.globalAlpha = k * .9;
+    ctxTop.drawImage(sp, b.x - b.r, b.y - b.r, d, d);
+    ctxTop.restore();
   }
   function drawSpark(s, t) {
     var a = s.a * (.45 + .55 * Math.abs(Math.sin(t * s.tw + s.ph)));
@@ -613,12 +609,10 @@
           bk.y += bk.vy * dt; bk.x += bk.vx * dt;
           if (bk.y < -40) { bokeh[bi] = bk = makeBokeh(false); }
         }
+        var bs = sprite(bk.c), bd = bk.r * 2;
         ctx.save();
         ctx.globalAlpha = bk.a * night;
-        ctx.fillStyle = "rgba(" + bk.c + ",.9)";
-        ctx.beginPath(); ctx.arc(bk.x, bk.y, bk.r, 0, 6.283); ctx.fill();
-        ctx.globalAlpha = bk.a * night * .35;
-        ctx.beginPath(); ctx.arc(bk.x, bk.y, bk.r * 1.8, 0, 6.283); ctx.fill();
+        ctx.drawImage(bs, bk.x - bk.r, bk.y - bk.r, bd, bd);
         ctx.restore();
       }
     }
@@ -645,7 +639,6 @@
     }
     if (night > .05 && !reduce) {
       if (Math.random() < dt * .9) {
-        firework(rand(W * .12, W * .88), rand(H * .10, H * .42), 34, .9);
       }
       if (Math.random() < dt * 2.2) twinkle(rand(0, W), rand(H * .08, H * .55));
     }
@@ -993,10 +986,7 @@
       $("cakeHint").textContent = "十八岁，愿望会实现的";
       var r = $("cake").getBoundingClientRect();
       confetti(r.left + r.width / 2, r.top + r.height * .18, reduce ? 16 : 80);
-      bubbleBurst(r.left + r.width / 2, r.top + r.height * .18, reduce ? 18 : 90, 1.25);
-      firework(W * .24, H * .24, reduce ? 20 : 66, 1.15);
-      firework(W * .76, H * .19, reduce ? 20 : 66, 1.1);
-      setTimeout(function () { firework(W * .5, H * .12, reduce ? 18 : 58, 1); }, 320);
+      bubbleBurst(r.left + r.width / 2, r.top + r.height * .18, reduce ? 20 : 130, 1.3);
       goldRain(r.left + r.width / 2, r.top + r.height * .32, reduce ? 16 : 70);
       setTimeout(function () {
         confetti(r.left + r.width * .2, r.top + r.height * .26, reduce ? 10 : 34);
@@ -1027,10 +1017,7 @@
     setTimeout(function () {
       var r = c.getBoundingClientRect();
       confetti(r.left + r.width / 2, r.top + r.height * .2, reduce ? 10 : 36);
-      bubbleBurst(r.left + r.width / 2, r.top + r.height * .2, reduce ? 16 : 64, 1);
-      firework(W * .28, H * .26, reduce ? 20 : 60, 1.1);
-      setTimeout(function () { firework(W * .74, H * .2, reduce ? 18 : 56, 1.05); }, 420);
-      setTimeout(function () { firework(W * .5, H * .13, reduce ? 18 : 52, .95); }, 820);
+      bubbleBurst(r.left + r.width / 2, r.top + r.height * .2, reduce ? 18 : 110, 1.15);
       goldRain(r.left + r.width / 2, r.top + r.height * .3, reduce ? 12 : 40);
     }, 260);
     setTimeout(function () {
