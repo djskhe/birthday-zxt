@@ -172,7 +172,7 @@
   .hint{margin:12px 0 0;font-size:12px;letter-spacing:.16em;color:var(--ink-soft);opacity:.85}
 
   /* ---------- 信纸 ---------- */
-  .peek{width:min(26vw,92px);margin:0 auto -14px;filter:drop-shadow(0 10px 16px rgba(63,48,112,.26));
+  .peek{width:min(28vw,100px);margin:0 auto -14px;filter:drop-shadow(0 10px 16px rgba(63,48,112,.26));
     animation:bob 3.4s ease-in-out infinite .2s;position:relative;z-index:3}
   .peek svg{display:block;width:100%;height:auto}
   .letter-card{position:relative;width:min(92vw,410px);margin:0 auto;
@@ -271,43 +271,62 @@
 <canvas class="fx" id="fxTop" aria-hidden="true"></canvas>
 
 <template id="eggTpl">
-  <svg viewBox="0 0 200 236" role="img" aria-label="蛋小黑">
+  <svg viewBox="0 0 200 240" role="img" aria-label="蛋小黑">
     <g class="egg__bob">
       <defs>
-        <radialGradient id="eggBody" cx="36%" cy="24%" r="84%">
-          <stop offset="0" stop-color="#7a7a96"/><stop offset="38%" stop-color="#3d3d56"/><stop offset="100%" stop-color="#1b1b28"/>
+        <radialGradient id="eggBody" cx="34%" cy="20%" r="90%">
+          <stop offset="0" stop-color="#3d3d4d"/><stop offset="40%" stop-color="#1c1c27"/><stop offset="100%" stop-color="#08080d"/>
+        </radialGradient>
+        <radialGradient id="eggFace" cx="42%" cy="30%" r="76%">
+          <stop offset="0" stop-color="#fffdf8"/><stop offset="60%" stop-color="#f9ebd9"/><stop offset="100%" stop-color="#eed9bf"/>
+        </radialGradient>
+        <radialGradient id="eggShine" cx="50%" cy="50%" r="50%">
+          <stop offset="0" stop-color="#fff" stop-opacity=".32"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/>
         </radialGradient>
         <linearGradient id="hatG" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0" stop-color="#ffd7e7"/><stop offset="1" stop-color="#ff9ec4"/>
         </linearGradient>
-        <radialGradient id="eggShine" cx="50%" cy="50%" r="50%">
-          <stop offset="0" stop-color="#fff" stop-opacity=".5"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/>
-        </radialGradient>
       </defs>
-      <ellipse cx="100" cy="222" rx="46" ry="8" fill="#5b46a8" opacity=".14"/>
-      <ellipse cx="74" cy="210" rx="15" ry="9" fill="#242433"/>
-      <ellipse cx="126" cy="210" rx="15" ry="9" fill="#242433"/>
-      <path d="M100 30c46 0 74 64 74 112 0 40-32 66-74 66s-74-26-74-66C26 94 54 30 100 30Z" fill="url(#eggBody)"/>
-      <ellipse cx="72" cy="76" rx="26" ry="19" fill="url(#eggShine)" transform="rotate(-18 72 76)"/>
-      <path d="M28 138c-14 4-20 14-16 22 4 8 16 8 24-2" fill="none" stroke="#242433" stroke-width="11" stroke-linecap="round"/>
-      <path class="egg__arm" d="M172 134c14 2 22 12 19 21-3 9-15 10-24 1" fill="none" stroke="#242433" stroke-width="11" stroke-linecap="round"/>
-      <g class="egg__eyes">
-        <ellipse cx="76" cy="138" rx="13" ry="15" fill="#ffffff"/>
-        <ellipse cx="124" cy="138" rx="13" ry="15" fill="#ffffff"/>
-        <ellipse cx="78" cy="140" rx="7.8" ry="9.2" fill="#1e1e2c"/>
-        <ellipse cx="126" cy="140" rx="7.8" ry="9.2" fill="#1e1e2c"/>
-        <circle cx="81.5" cy="136" r="2.8" fill="#ffffff"/>
-        <circle cx="129.5" cy="136" r="2.8" fill="#ffffff"/>
-        <circle cx="75" cy="145" r="1.6" fill="#ffffff" opacity=".85"/>
-        <circle cx="123" cy="145" r="1.6" fill="#ffffff" opacity=".85"/>
+
+      <ellipse cx="100" cy="228" rx="46" ry="7" fill="#5b46a8" opacity=".18"/>
+      <ellipse cx="72" cy="215" rx="15" ry="9" fill="#12121b"/>
+      <ellipse cx="128" cy="215" rx="15" ry="9" fill="#12121b"/>
+
+      <path d="M100 24c48 0 74 62 74 112 0 42-31 72-74 72s-74-30-74-72C26 86 52 24 100 24Z" fill="url(#eggBody)"/>
+      <ellipse cx="64" cy="62" rx="22" ry="16" fill="url(#eggShine)" transform="rotate(-20 64 62)"/>
+
+      <path d="M44 156 24 164" fill="none" stroke="#12121b" stroke-width="15" stroke-linecap="round"/>
+      <path class="egg__arm" d="M156 154 176 162" fill="none" stroke="#12121b" stroke-width="15" stroke-linecap="round"/>
+
+      <ellipse cx="100" cy="136" rx="61" ry="61" fill="url(#eggFace)"/>
+
+      <g fill="#14141e">
+        <ellipse cx="74" cy="120" rx="31" ry="23"/>
+        <ellipse cx="126" cy="120" rx="31" ry="23"/>
+        <rect x="74" y="97" width="52" height="46"/>
       </g>
-      <ellipse cx="54" cy="162" rx="11.5" ry="7" fill="#ff9ec4" opacity=".6"/>
-      <ellipse cx="146" cy="162" rx="11.5" ry="7" fill="#ff9ec4" opacity=".6"/>
-      <path d="M92 163c3.8 6.4 12.4 6.4 16 0" fill="none" stroke="#14141f" stroke-width="3.4" stroke-linecap="round"/>
-      <g transform="translate(126 36) rotate(15)">
-        <path d="M0 0 16-46 32 0Z" fill="url(#hatG)"/>
-        <circle cx="16" cy="-48" r="6.6" fill="#fff6fb"/>
-        <path d="M4.5-14h23" stroke="#ffffff" stroke-opacity=".75" stroke-width="3" stroke-linecap="round"/>
+
+      <g class="egg__eyes">
+        <ellipse cx="74" cy="120" rx="15.5" ry="16.5" fill="#fbfbfe"/>
+        <ellipse cx="126" cy="120" rx="15.5" ry="16.5" fill="#fbfbfe"/>
+        <ellipse cx="76" cy="122" rx="8.4" ry="9.6" fill="#22222d"/>
+        <ellipse cx="128" cy="122" rx="8.4" ry="9.6" fill="#22222d"/>
+        <circle cx="79" cy="116" r="3.3" fill="#ffffff"/>
+        <circle cx="131" cy="116" r="3.3" fill="#ffffff"/>
+        <circle cx="72" cy="127" r="1.6" fill="#ffffff" opacity=".85"/>
+        <circle cx="124" cy="127" r="1.6" fill="#ffffff" opacity=".85"/>
+      </g>
+
+      <ellipse cx="50" cy="156" rx="10" ry="6" fill="#ff9ec4" opacity=".35"/>
+      <ellipse cx="150" cy="156" rx="10" ry="6" fill="#ff9ec4" opacity=".35"/>
+
+      <path d="M84 166c5 10 27 10 32 0Z" fill="#2c2121"/>
+      <path d="M92 167h6.5v4.4H92zM103 167h6.5v4.4H103z" fill="#fff8ef"/>
+
+      <g transform="translate(126 44) rotate(14)">
+        <path d="M0 0 13-34 26 0Z" fill="url(#hatG)"/>
+        <circle cx="13" cy="-36" r="5" fill="#fff6fb"/>
+        <path d="M4.6-9h17" stroke="#ffffff" stroke-opacity=".7" stroke-width="2.6" stroke-linecap="round"/>
       </g>
     </g>
   </svg>
@@ -408,7 +427,7 @@
       <p class="night-sub">曾祥婷 · 十八岁</p>
 
       <div class="cake-wrap">
-        <svg id="cake" viewBox="0 134 340 288" role="img" aria-label="三层星空蛋糕，插着十八根蜡烛">
+        <svg id="cake" viewBox="0 134 340 288" role="img" aria-label="三层星空蛋糕，十八根蜡烛插在三层上">
   <defs>
     <linearGradient id="tierG" x1="0.1" y1="0" x2="0.9" y2="1">
       <stop offset="0" stop-color="#46578f"/><stop offset="38%" stop-color="#2b3766"/><stop offset="100%" stop-color="#141a36"/>
@@ -783,12 +802,24 @@
   var candleEls = [];
   function buildCandles() {
     var layer = $("candleLayer");
-    var CX = 170, CY = 180, RX = 58, RY = 10, N = 18;
+    var LEVELS = [
+      { cy: 180, rx: 66, ry: 12, n: 8, arc: false, h: 26 },
+      { cy: 240, rx: 98, ry: 16, n: 5, arc: true, h: 25 },
+      { cy: 306, rx: 136, ry: 20, n: 5, arc: true, h: 27 }
+    ];
     var items = [];
-    for (var i = 0; i < N; i++) {
-      var a = -Math.PI / 2 + i * 2 * Math.PI / N;
-      items.push({ x: CX + RX * Math.cos(a), y: CY + RY * Math.sin(a), h: 26 + (i % 3) * 2 });
-    }
+    LEVELS.forEach(function (lv, li) {
+      for (var i = 0; i < lv.n; i++) {
+        var a;
+        if (lv.arc) a = Math.PI * (0.17 + 0.66 * i / (lv.n - 1));
+        else a = -Math.PI / 2 + i * 2 * Math.PI / lv.n;
+        items.push({
+          x: 170 + lv.rx * Math.cos(a),
+          y: lv.cy + lv.ry * Math.sin(a),
+          h: lv.h + ((i + li) % 2 ? 2 : -2)
+        });
+      }
+    });
     items.sort(function (p, q) { return p.y - q.y; });
     items.forEach(function (it) {
       var x = it.x, y = it.y, hh = it.h, tip = y - hh;
