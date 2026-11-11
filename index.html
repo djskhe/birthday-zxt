@@ -168,6 +168,8 @@
   .card__line{margin:0 0 9px;font-size:clamp(13.5px,3.9vw,15px);line-height:1.9;color:var(--ink)}
   .card__line em{font-style:normal;color:var(--violet);font-weight:700}
   .card__sign{margin:14px 0 0;font-size:12.5px;letter-spacing:.1em;color:var(--ink-soft)}
+  .card__tag,.card__title,.card__line,.card__sign{opacity:0;transform:translateY(14px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+  .card.is-in .card__tag,.card.is-in .card__title,.card.is-in .card__line,.card.is-in .card__sign{opacity:1;transform:none}
   .card-bar{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:14px;padding-top:12px;border-top:1px dashed rgba(122,107,166,.24);flex-wrap:wrap}
   .mini{border:0;background:transparent;cursor:pointer;font-family:inherit;font-size:12.5px;letter-spacing:.08em;color:var(--ink-soft);padding:7px 8px;border-radius:999px;transition:color .2s,background .2s}
   .mini:hover{color:var(--violet);background:rgba(165,140,232,.1)}
@@ -778,7 +780,7 @@
   }
 
   /* ================= 交互 ================= */
-  var intro = $("intro"), finale = $("finale"), giftwrap = $("giftwrap"), box = $("box");
+  var intro = $("intro"), finale = $("finale"), giftwrap = $("giftwrap"), box = $("box"), card = $("card");
   var egg = makeEgg($("eggSlot"), "egg");
   makeEgg($("peek"), "peek-art");
   var blowBtn = $("blowBtn"), wish = $("wish"), cakeHint = $("cakeHint"), downHint = $("downHint");
@@ -787,7 +789,10 @@
   function showFinale() {
     finale.classList.add("is-visible");
     intro.classList.remove("is-visible");
+    var bits = card.querySelectorAll(".card__tag,.card__title,.card__line,.card__sign");
+    for (var b = 0; b < bits.length; b++) bits[b].style.transitionDelay = (0.06 + b * 0.12) + "s";
     setTimeout(function () {
+      card.classList.add("is-in");
       burstAt($("peek"), reduce ? 10 : 34);
       busy = false;
       setTimeout(function () {
@@ -839,6 +844,7 @@
     intro.classList.add("is-visible");
     box.classList.remove("is-open", "is-shake");
     egg.classList.remove("is-pop");
+    card.classList.remove("is-in");
     blown = false;
     blowBtn.classList.remove("is-done");
     wish.classList.remove("is-in");
