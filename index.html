@@ -244,6 +244,50 @@
     z-index:20;padding:10px 18px;border-radius:999px;background:rgba(255,255,255,.96);color:#5b46a8;
     font-size:13px;letter-spacing:.06em;box-shadow:0 10px 26px rgba(96,72,168,.22);opacity:0;pointer-events:none;transition:all .3s ease}
   .music-tip.is-in{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+  /* 蛋小黑气泡 */
+  .egg-say{position:absolute;left:50%;top:-16px;transform:translate(-50%,6px) scale(.9);opacity:0;
+    padding:9px 14px;border-radius:14px;background:rgba(255,255,255,.98);color:#5b46a8;font-size:12.5px;
+    white-space:nowrap;box-shadow:0 8px 18px rgba(96,72,168,.2);transition:all .3s var(--ease);pointer-events:none;z-index:6}
+  .egg-say.is-in{opacity:1;transform:translate(-50%,0) scale(1)}
+  .egg-say::after{content:"";position:absolute;left:50%;bottom:-4px;width:9px;height:9px;background:inherit;
+    transform:translateX(-50%) rotate(45deg);border-radius:2px}
+
+  /* 想做的 3 件事（她自己写） */
+  .note-wrap{width:min(92vw,410px);margin:14px auto 0}
+  .wl-title{margin:14px 0 10px;font-size:12px;letter-spacing:.22em;color:var(--ink-soft)}
+  .wl-row{display:flex;align-items:center;gap:10px;margin:0 0 10px;padding:0 2px}
+  .wl-row .no{flex:0 0 20px;height:20px;border-radius:50%;background:rgba(255,158,196,.2);color:#d76d9c;
+    font-size:11px;line-height:20px;text-align:center;font-weight:700}
+  .wl-row input{flex:1;min-width:0;border:0;border-bottom:1px dashed rgba(122,107,166,.35);
+    background:transparent;font-family:inherit;font-size:13.5px;color:var(--ink);padding:6px 2px;outline:none}
+  .wl-row input::placeholder{color:rgba(125,111,168,.42)}
+  .wl-row input:focus{border-bottom-color:var(--pink)}
+  .wl-hint{margin:6px 0 0;font-size:11px;letter-spacing:.12em;color:rgba(125,111,168,.6);min-height:15px}
+  .stamp-line{margin:16px 0 0;font-size:10.5px;letter-spacing:.26em;color:rgba(200,190,240,.42)}
+
+  .wish-float{position:absolute;left:0;top:0;font-size:13px;color:#ffe4f1;letter-spacing:.08em;
+    text-shadow:0 2px 12px rgba(255,120,180,.55);pointer-events:none;opacity:0;will-change:transform,opacity}
+
+  #scratchScene{background:radial-gradient(120% 80% at 50% 0%,#2c2354 0%,#1c1538 55%,#120d26 100%)}
+  .scratch-title{margin:0 0 6px;font-size:clamp(20px,5.6vw,24px);font-weight:800;letter-spacing:.04em;
+    background:linear-gradient(100deg,#ffe2f0,#cfd4ff 55%,#a9d8ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .scratch-sub{margin:0 0 18px;font-size:12px;letter-spacing:.18em;color:rgba(206,198,240,.7)}
+  .scratch-wrap{position:relative;width:min(84vw,320px);aspect-ratio:320/170;margin:0 auto;border-radius:18px;overflow:hidden;
+    background:linear-gradient(150deg,#fff7fb,#ffe6f2);box-shadow:0 20px 44px rgba(0,0,0,.4)}
+  .scratch-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;padding:18px;text-align:center}
+  .scratch-text b{font-size:15px;color:#5b46a8;letter-spacing:.06em;line-height:1.6}
+  .scratch-text span{font-size:12px;color:#8a7bb8;letter-spacing:.08em}
+  #scratchCanvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+  .scratch-hint{margin:14px 0 0;font-size:12px;letter-spacing:.14em;color:rgba(206,198,240,.6);min-height:18px}
+  .scratch-actions{margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .scratch-btn{border:0;cursor:pointer;font-family:inherit;font-size:13px;letter-spacing:.1em;padding:10px 20px;
+    border-radius:999px;color:#2a1f4a;background:linear-gradient(135deg,#ffe1ef,#cdd4ff);box-shadow:0 8px 20px rgba(180,170,255,.28)}
+  .scratch-btn.ghost{background:rgba(255,255,255,.12);color:rgba(226,218,255,.85);box-shadow:none}
+  .scratch-link{margin-top:14px;border:0;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:700;
+    letter-spacing:.12em;padding:11px 24px;border-radius:999px;color:#2a1f4a;
+    background:linear-gradient(135deg,#ffe1ef,#cdd4ff);box-shadow:0 10px 24px rgba(180,170,255,.3);
+    opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease}
+  .scratch-link.is-in{opacity:1;transform:none}
   .shoot{position:absolute;width:110px;height:1.5px;border-radius:2px;pointer-events:none;
     background:linear-gradient(90deg,transparent,rgba(255,255,255,.9));opacity:0;transform:rotate(24deg)}
   .shoot.s1{left:6%;top:18%;animation:shoot 7s ease-in infinite 1.5s}
@@ -334,7 +378,7 @@
   <!-- ========== 二 · 信纸 ========== -->
   <section class="layer" id="letter" aria-label="生日祝福">
     <div class="inner">
-      <div class="peek" id="peek" aria-hidden="true"></div>
+      <div class="peek" id="peek"><span class="egg-say" id="eggSay" aria-live="polite"></span></div>
 
       <section class="letter-card" id="letterCard" aria-live="polite">
         <p class="card__tag">读 到 这 里</p>
@@ -349,6 +393,14 @@
           <button class="mini" id="soundBtn" type="button" aria-pressed="true">音乐：开</button>
         </div>
       </section>
+
+      <div class="note-wrap">
+        <p class="wl-title">写 下 你 想 做 的 三 件 事</p>
+        <div class="wl-row"><span class="no">1</span><input class="wl-input" data-i="0" maxlength="20" placeholder="第一件想做的事…" aria-label="第一件想做的事"></div>
+        <div class="wl-row"><span class="no">2</span><input class="wl-input" data-i="1" maxlength="20" placeholder="第二件想做的事…" aria-label="第二件想做的事"></div>
+        <div class="wl-row"><span class="no">3</span><input class="wl-input" data-i="2" maxlength="20" placeholder="第三件想做的事…" aria-label="第三件想做的事"></div>
+        <p class="wl-hint" id="wlHint">只有你看得见 · 自动存在这台手机上</p>
+      </div>
 
       <button class="to-cake" id="toCake" type="button">去看蛋糕 · 许个愿 ↓</button>
     </div>
@@ -368,7 +420,7 @@
       <h2 class="night-title">把星河予你</h2>
       <p class="night-sub">曾祥婷 · 十八岁</p>
 
-      <div class="cake-wrap">
+      <div class="cake-wrap" id="cakeWrap">
         <svg id="cake" viewBox="0 134 340 288" role="img" aria-label="三层星空蛋糕，十八根蜡烛插在三层上">
   <defs>
     <linearGradient id="tierG" x1="0.1" y1="0" x2="0.9" y2="1">
@@ -457,7 +509,27 @@
       <p class="cake-hint" id="cakeHint">十八根蜡烛，替她吹一下吧</p>
       <button class="blow-btn" id="blowBtn" type="button">吹蜡烛 · 许个愿</button>
       <p class="wish" id="wish">愿望收好啦 —— 愿十八岁的你，<br>万事顺意，岁岁欢喜。</p>
+      <p class="stamp-line">2026.11.11 · 你的第 18 个生日</p>
+      <button class="scratch-link" id="toScratch" type="button" style="display:none">还有一张小卡片 →</button>
       <button class="mini night-mini" id="backLetter" type="button">回去再看看信</button>
+    </div>
+  </section>
+  <section class="layer" id="scratchScene" aria-label="最后一张小卡片">
+    <div class="inner">
+      <p class="scratch-title">最后一张小卡片</p>
+      <p class="scratch-sub">用手指刮开它</p>
+      <div class="scratch-wrap">
+        <div class="scratch-text">
+          <b>明年这天，<br>我还给你写。</b>
+          <span>—— 说好了</span>
+        </div>
+        <canvas id="scratchCanvas" aria-label="刮开涂层"></canvas>
+      </div>
+      <p class="scratch-hint" id="scratchHint">刮开一半就会全部显形</p>
+      <div class="scratch-actions">
+        <button class="scratch-btn ghost" id="scratchAgain" type="button">再刮一次</button>
+        <button class="scratch-btn ghost" id="scratchBack" type="button">回去再看看信</button>
+      </div>
     </div>
   </section>
 </div>
@@ -623,6 +695,23 @@
       }
     }
 
+    if (analyser && night > .3 && !reduce) {
+      analyser.getByteFrequencyData(freqData);
+      var sum = 0;
+      for (var q = 0; q < freqData.length; q++) sum += freqData[q];
+      level = sum / freqData.length / 255;
+      var nowMs = performance.now();
+      if (level > .52 && nowMs - lastBeat > 260) {
+        lastBeat = nowMs;
+        var cw = $("cakeWrap");
+        if (cw) {
+          var cr = cw.getBoundingClientRect();
+          bubbleBurst(cr.left + cr.width * (.3 + Math.random() * .4), cr.top + cr.height * .3, 6, .55);
+          twinkle(cr.left + cr.width * (.2 + Math.random() * .6), cr.top + cr.height * (0.15 + Math.random() * .35));
+        }
+      }
+    }
+
     var i, s;
     for (i = 0; i < sparks.length; i++) {
       s = sparks[i];
@@ -779,6 +868,7 @@
     o.start(at); o2.start(at); o.stop(at + 2.2); o2.stop(at + 2.2);
   }
   var bgm = document.getElementById("bgm"), bgmFade = 0, musicStarted = false;
+  var analyser = null, freqData = null, level = 0, lastBeat = 0;
   (function initAudio() {
     if (!bgm) return;
     var src = bgm.getAttribute("src") || "";
@@ -824,6 +914,20 @@
   function startMusic() {
     if (!soundOn || !bgm) return;
     musicStarted = true;
+    if (!analyser) {
+      try {
+        var a0 = ac();
+        if (a0) {
+          var src = a0.createMediaElementSource(bgm);
+          analyser = a0.createAnalyser();
+          analyser.fftSize = 256;
+          analyser.smoothingTimeConstant = .82;
+          src.connect(analyser);
+          analyser.connect(a0.destination);
+          freqData = new Uint8Array(analyser.frequencyBinCount);
+        }
+      } catch (e) { analyser = null; }
+    }
     try { bgm.volume = 0; } catch (e) {}
     var p = bgm.play();
     if (p && p.then) {
@@ -940,13 +1044,14 @@
   }
 
   /* ================= 场景 ================= */
-  var cover = $("cover"), letter = $("letter"), cakeScene = $("cakeScene");
+  var cover = $("cover"), letter = $("letter"), cakeScene = $("cakeScene"), scratchScene = $("scratchScene");
   var env = $("env"), envEgg = $("envEgg"), letterCard = $("letterCard");
   var opened = false, busy = false, blown = false, current = "cover";
   addEgg(envEgg, "egg-pop");
   var peekImg = addEgg($("peek"), "peek-egg");
   peekImg.addEventListener("click", function (e) {
     e.stopPropagation();
+    eggSpeak();
     burstAt(peekImg, reduce ? 8 : 22);
     if (peekImg.animate) {
       peekImg.animate(
@@ -956,15 +1061,15 @@
     }
   });
 
-  var SCENES = { cover: cover, letter: letter, cake: cakeScene };
+  var SCENES = { cover: cover, letter: letter, cake: cakeScene, scratch: scratchScene };
   function show(name) {
     current = name;
-    nightTarget = name === "cake" ? 1 : 0;
+    nightTarget = (name === "cake" || name === "scratch") ? 1 : 0;
     for (var k in SCENES) SCENES[k].classList.toggle("is-visible", k === name);
   }
   function go(name, wait) {
     current = name;
-    nightTarget = name === "cake" ? 1 : 0;
+    nightTarget = (name === "cake" || name === "scratch") ? 1 : 0;
     for (var k in SCENES) SCENES[k].classList.remove("is-visible");
     setTimeout(function () { SCENES[name].classList.add("is-visible"); }, wait || 320);
   }
@@ -1010,6 +1115,9 @@
     });
     setTimeout(function () {
       $("wish").classList.add("is-in");
+      floatWishes();
+      var ts = $("toScratch");
+      if (ts) { ts.style.display = ""; ts.classList.add("is-in"); }
       $("cakeHint").textContent = "十八岁，愿望会实现的";
       var r = $("cake").getBoundingClientRect();
       confetti(r.left + r.width / 2, r.top + r.height * .18, reduce ? 16 : 80);
@@ -1032,8 +1140,77 @@
     $("wish").classList.remove("is-in");
     $("cakeHint").textContent = "十八根蜡烛，替她吹一下吧";
     candleEls.forEach(function (c) { c.classList.remove("is-out"); });
-    cakeScene.scrollTop = 0; letter.scrollTop = 0;
+    var ts = $("toScratch"); if (ts) ts.style.display = "none";
+    scInit = false;
+    cakeScene.scrollTop = 0; letter.scrollTop = 0; scratchScene.scrollTop = 0;
     go("cover", 60);
+  }
+
+  /* ---- 蛋小黑说话 ---- */
+  var SAY = ["生日快乐呀！", "今天不许不开心", "别熬夜，真的", "我一直在的", "许愿要大声一点",
+             "18 岁，大胆一点", "记得吃蛋糕", "你笑起来最好看", "慢慢来，也很好", "明年还要一起过"];
+  var sayIdx = -1, sayTimer = 0;
+  var eggSay = $("eggSay");
+  function eggSpeak() {
+    if (!eggSay) return;
+    var i = (sayIdx = (sayIdx + 1) % SAY.length);
+    if (sayIdx === 0) i = (Math.random() * SAY.length) | 0;
+    eggSay.textContent = SAY[i];
+    eggSay.classList.add("is-in");
+    clearTimeout(sayTimer);
+    sayTimer = setTimeout(function () { eggSay.classList.remove("is-in"); }, 2600);
+  }
+
+  /* ---- 她想做的三件事（本机保存） ---- */
+  var wlInputs = Array.prototype.slice.call(document.querySelectorAll(".wl-input"));
+  var wlHint = $("wlHint"), wlTimer = 0;
+  var WL_KEY = "zxt-wishlist-v1";
+  function loadWishes() {
+    try {
+      var saved = JSON.parse(localStorage.getItem(WL_KEY) || "[]");
+      wlInputs.forEach(function (el, i) { if (saved[i]) el.value = saved[i]; });
+    } catch (e) {}
+  }
+  function saveWishes() {
+    try {
+      var arr = wlInputs.map(function (el) { return el.value.trim(); });
+      localStorage.setItem(WL_KEY, JSON.stringify(arr));
+      if (wlHint) {
+        wlHint.textContent = "已记下 " + arr.filter(Boolean).length + " 件 · 只存在你的手机里";
+      }
+    } catch (e) {}
+  }
+  wlInputs.forEach(function (el) {
+    el.addEventListener("input", function () {
+      clearTimeout(wlTimer);
+      wlTimer = setTimeout(saveWishes, 400);
+    });
+  });
+  loadWishes();
+
+  /* ---- 18 个小愿望 ---- */
+  var WISHES = ["平安", "发光", "被爱", "吃好睡好", "少内耗", "多晒太阳", "顺意", "有回音", "大胆一点",
+                "慢慢来", "有人陪", "常开心", "不将就", "被偏爱", "睡得早", "笑得久", "心想事成", "岁岁欢喜"];
+  function floatWishes() {
+    var host = $("cakeWrap");
+    if (!host) return;
+    var rect = host.getBoundingClientRect();
+    WISHES.forEach(function (w, i) {
+      setTimeout(function () {
+        var el = document.createElement("span");
+        el.className = "wish-float";
+        el.textContent = w;
+        el.style.left = (rect.width * (0.12 + Math.random() * 0.72)) + "px";
+        el.style.top = (rect.height * (0.22 + Math.random() * 0.5)) + "px";
+        host.appendChild(el);
+        el.animate([
+          { opacity: 0, transform: "translateY(14px) scale(.9)" },
+          { opacity: 1, transform: "translateY(-10px) scale(1)", offset: .25 },
+          { opacity: 0, transform: "translateY(-84px) scale(1)" }
+        ], { duration: 2800, easing: "ease-out", fill: "forwards" });
+        setTimeout(function () { el.remove(); }, 3000);
+      }, 260 + i * 110);
+    });
   }
 
   $("seal").addEventListener("click", openEnvelope);
@@ -1079,6 +1256,87 @@
       });
     }, 160);
   });
+  /* ---- 刮刮卡 ---- */
+  var sc = $("scratchCanvas"), sctx = sc ? sc.getContext("2d") : null;
+  var scratching = false, scInit = false, scRevealed = false;
+  function initScratch() {
+    if (!sc) return;
+    var w = sc.clientWidth || 300, h = sc.clientHeight || 160;
+    sc.width = Math.round(w * 2);
+    sc.height = Math.round(h * 2);
+    sctx.setTransform(2, 0, 0, 2, 0, 0);
+    sctx.globalCompositeOperation = "source-over";
+    var g = sctx.createLinearGradient(0, 0, w, h);
+    g.addColorStop(0, "#b9a6ee");
+    g.addColorStop(.5, "#e6b7d8");
+    g.addColorStop(1, "#a9c8f0");
+    sctx.fillStyle = g;
+    sctx.fillRect(0, 0, w, h);
+    sctx.globalAlpha = .5;
+    sctx.fillStyle = "#ffffff";
+    for (var i = 0; i < 26; i++) {
+      sctx.beginPath();
+      sctx.arc(Math.random() * w, Math.random() * h, Math.random() * 2.4 + .6, 0, 6.283);
+      sctx.fill();
+    }
+    sctx.globalAlpha = 1;
+    sctx.fillStyle = "rgba(255,255,255,.9)";
+    sctx.font = "600 13px -apple-system,'PingFang SC',sans-serif";
+    sctx.textAlign = "center";
+    sctx.fillText("用手指刮开", w / 2, h / 2 + 5);
+    sctx.globalCompositeOperation = "destination-out";
+    scInit = true;
+    scRevealed = false;
+    var hint = $("scratchHint");
+    if (hint) hint.textContent = "刮开一半就会全部显形";
+  }
+  function scratchAt(x, y) {
+    if (!scInit) return;
+    sctx.beginPath();
+    sctx.arc(x, y, 24, 0, 6.283);
+    sctx.fill();
+  }
+  function checkReveal() {
+    if (scRevealed || !scInit) return;
+    try {
+      var d = sctx.getImageData(0, 0, sc.width, sc.height).data;
+      var clear = 0, total = d.length / 4;
+      for (var i = 3; i < d.length; i += 16) { if (d[i] < 40) clear++; }
+      var ratio = clear / (total / 4);
+      if (ratio > .45) {
+        scRevealed = true;
+        sctx.clearRect(0, 0, sc.width, sc.height);
+        var hint = $("scratchHint");
+        if (hint) hint.textContent = "被你刮出来啦 ✦";
+        burstAt(sc, reduce ? 10 : 40);
+        chime();
+      }
+    } catch (e) {}
+  }
+  if (sc) {
+    sc.addEventListener("pointerdown", function (e) {
+      scratching = true;
+      if (sc.setPointerCapture) { try { sc.setPointerCapture(e.pointerId); } catch (err) {} }
+      var r = sc.getBoundingClientRect();
+      scratchAt(e.clientX - r.left, e.clientY - r.top);
+    });
+    sc.addEventListener("pointermove", function (e) {
+      if (!scratching) return;
+      var r = sc.getBoundingClientRect();
+      scratchAt(e.clientX - r.left, e.clientY - r.top);
+      checkReveal();
+    });
+    ["pointerup", "pointercancel", "pointerleave"].forEach(function (t) {
+      sc.addEventListener(t, function () { scratching = false; checkReveal(); });
+    });
+  }
+  $("toScratch").addEventListener("click", function () {
+    go("scratch", reduce ? 40 : 320);
+    setTimeout(function () { if (!scInit) initScratch(); }, reduce ? 80 : 380);
+  });
+  $("scratchAgain").addEventListener("click", function () { initScratch(); });
+  $("scratchBack").addEventListener("click", function () { go("letter", reduce ? 40 : 320); });
+
   document.addEventListener("visibilitychange", function () {
     if (document.hidden) {
       stopLoop();
