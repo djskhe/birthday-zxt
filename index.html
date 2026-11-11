@@ -794,6 +794,15 @@
     bgm.addEventListener("error", function () {
       toast("音乐加载失败，点这里重试");
     });
+    // 微信内置浏览器：桥接就绪后自动解锁播放
+    document.addEventListener("WeixinJSBridgeReady", function () {
+      if (soundOn) startMusic();
+    }, false);
+    // 任意一次触摸也尝试起播（有些浏览器需要更直接的交互）
+    document.addEventListener("touchstart", function once() {
+      document.removeEventListener("touchstart", once);
+      if (soundOn && !musicStarted) startMusic();
+    }, { passive: true });
   })();
   function toast(text) {
     var el = document.getElementById("musicTip");
